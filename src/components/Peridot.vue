@@ -1,0 +1,57 @@
+<template>
+  <div
+    class="peridot"
+    :style="{
+      transform: `translateX(${position.x * 100}%) translateY(${position.y * 100}%) rotate(${angle}deg)`
+    }">
+    <svg height="100%" width="100%" viewBox="0 0 200 200">
+      <polygon points="0,0 0,200 200,100"/>
+    </svg>
+  </div>
+</template>
+
+<script>
+import {vectorToAngle} from '@/pure/trigonometry'
+export default {
+  props:
+  {
+    position: {
+      type: Object,
+      default() {
+        return {
+          x: 0,
+          y: 0
+        }
+      }
+    },
+    direction: {
+      type: Object,
+      default() {
+        return {
+          x: 0,
+          y: 1
+        }
+      }
+    }
+  },
+  computed: {
+    angle() {
+      return vectorToAngle(this.direction)
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.peridot {
+  position: absolute;
+  // background-color: #E6E200;
+  width: 48px;
+  height: 48px;
+  display: block;
+  left: 0px;
+  top: 0px;
+  // border-radius: 20px;
+  transition: transform .3s ease;
+}
+</style>
