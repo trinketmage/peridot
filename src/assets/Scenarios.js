@@ -15,6 +15,18 @@ export default [
       }
     },
     columns: 5,
-    rows: 5
+    rows: 5,
+    tokens: [
+      {
+        x: 3,
+        y: 3,
+        count: 2
+      },
+      {
+        x: 1,
+        y: 4,
+        count: 1
+      }
+    ]
   }
 ];

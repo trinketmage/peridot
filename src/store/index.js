@@ -1,21 +1,7 @@
+import { formatScenerioGrid } from "@/pure/ScenarioUtils";
+import scenarios from "@/assets/Scenarios";
 export default {
-  robot: {
-    compartment: {
-      capacity: 10,
-      hold: 0
-    },
-    position: {
-      x: 0,
-      y: 0
-    },
-    direction: {
-      x: 0,
-      y: 1
-    }
-  },
-  grid: {
-    columns: 5,
-    rows: 5,
-    data: []
-  }
+  robot: scenarios[0].robot,
+  grid: formatScenerioGrid(scenarios[0]),
+  scenarios
 };

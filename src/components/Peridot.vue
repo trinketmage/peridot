@@ -5,7 +5,7 @@
       transform
     }">
     <svg height="100%" width="100%" viewBox="0 0 200 200">
-      <polygon points="0,0 0,200 200,100"/>
+      <polygon points="50,50 50,150 150,100"/>
     </svg>
   </div>
 </template>
