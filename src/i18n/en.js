@@ -1,7 +1,9 @@
 export default {
-  forward: "move",
-  turnLeft: "left",
-  dropToken: "drop_token",
-  pickToken: "pick_token",
-  end: "end"
+  instructions: {
+    forward: "move",
+    turnLeft: "left",
+    dropToken: "drop_token",
+    pickToken: "pick_token",
+    end: "end"
+  }
 };

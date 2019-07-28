@@ -40,8 +40,8 @@ export default {
     i18nInstructions() {
       const i18nInstructions = {}
       for(const key in Instructions) {
-        if(this.$te(key)) {
-          i18nInstructions[this.$t(key)] = Instructions[key]
+        if(this.$te(`instructions.${key}`)) {
+          i18nInstructions[this.$t(`instructions.${key}`)] = Instructions[key]
         }
       }
       return i18nInstructions
