@@ -7,7 +7,8 @@ Peridot is an educational game introducing beginners to the fundamentals of algo
 
 ### Links
 [GitHub](https://github.com/trinketmage/peridot)  
-[Web site](http://www.peridot.education)
+[Web site](http://www.peridot.education)  
+[Wiki](https://github.com/trinketmage/peridot/wiki/Pr%C3%A9sentation-et-utilisation-de-Peridot)
 
 ### Contact
 If you have any problems, questions, ideas or suggestions, please send us
