@@ -1,4 +1,8 @@
 export default {
+  help: "aide",
+  run: "exécuter",
+  tokens: "jetons",
+  placeholder: "coucou Peridot !",
   instructions: {
     forward: "avance",
     turnLeft: "gauche",
