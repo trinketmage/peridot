@@ -11,7 +11,7 @@
     />
     <div class="editor-footer">
       <a>help</a>
-      <button><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> run</button>
+      <button @click="submit"><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> run</button>
     </div>
   </div>
 </template>
@@ -19,11 +19,9 @@
 <script>
 
 import { codemirror } from 'vue-codemirror'
-// require styles
+
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/display/placeholder'
-
-// require more codemirror resource...
 
 export default {
   components: {
@@ -53,9 +51,10 @@ export default {
     onCmCodeChange(newCode) {
       console.log('this is new code', newCode)
       this.$emit('change-content', newCode)
-
+    },
+    submit() {
+      this.$emit('submit', this.content)
     }
-
   }
 }
 </script>
@@ -67,7 +66,6 @@ export default {
   background-color: #ffffff
   /deep/ .CodeMirror
     height: auto
-    // border: 1px solid #ddd
     line-height: 1.5
     padding-bottom: 12px
     padding-top: 12px
@@ -75,7 +73,6 @@ export default {
     border-radius: 4px
     .CodeMirror-gutters
       background-color: transparent
-      // background-color: red
       color: #959da5
       border-right: none
       padding-left: 7px
@@ -105,6 +102,7 @@ export default {
     display: flex
     align-items: center
     justify-content: center
+    cursor: pointer
     polygon
       fill: #ffffff
 </style>

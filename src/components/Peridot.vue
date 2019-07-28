@@ -53,13 +53,11 @@ export default {
 
 .peridot {
   position: absolute;
-  // background-color: #E6E200;
   width: 48px;
   height: 48px;
   display: block;
-  left: 0px;
-  top: 0px;
-  // border-radius: 20px;
+  left: 2px;
+  top: 2px;
   transition: transform .3s ease;
   polygon {
     fill: #24b47e;

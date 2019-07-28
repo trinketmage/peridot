@@ -7,7 +7,9 @@
         :content="content"
         theme="github"
         :errors="errorBag"
-        @change-content="changeContent"/>
+        @change-content="changeContent"
+        @submit="submit"
+      />
     </div>
   </div>
 </template>
@@ -51,9 +53,12 @@ export default {
     changeContent (value) {
       store.robot = formatScenerioRobot(scenarios[0].robot)
       store.grid = formatScenerioGrid(scenarios[0])
-
       this.content = value
       this.checkInstructions(value)
+    },
+    submit(value) {
+      this.changeContent(value)
+      this.checkInstructions()
     },
     checkInstructions (value) {
       const inputs = this.content.split('\n')
