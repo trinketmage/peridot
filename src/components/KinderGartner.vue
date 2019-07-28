@@ -49,8 +49,6 @@ export default {
 
 <style scoped lang="scss">
 .kinder-gartner {
-  background-color: #ffffff;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,8 +63,8 @@ export default {
     .cell {
       width: 48px;
       height: 48px;
-      border: 2px solid #ffffff;
-      background-color: #f6f9fc;
+      border: 4px solid #f6f9fc;
+      background-color: #ffffff;
       position: relative
     }
   }
