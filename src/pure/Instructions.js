@@ -6,32 +6,36 @@ export default {
     model.robot.position.y += model.robot.direction.y;
   },
   turnLeft(model) {
-    const newAngle = vectorToAngle(model.robot.direction) - 90;
-    model.robot.direction = angleToVector(newAngle);
+    model.robot.angle -= 90;
+    model.robot.direction = angleToVector(model.robot.angle);
   },
   lookSouth(model) {
     model.robot.direction = {
       x: 0,
       y: 1
     };
+    model.robot.angle = vectorToAngle(model.robot.direction);
   },
   lookEast(model) {
     model.robot.direction = {
       x: 1,
       y: 0
     };
+    model.robot.angle = vectorToAngle(model.robot.direction);
   },
   lookWest(model) {
     model.robot.direction = {
       x: -1,
       y: 0
     };
+    model.robot.angle = vectorToAngle(model.robot.direction);
   },
   lookNorth(model) {
     model.robot.direction = {
       x: 0,
       y: -1
     };
+    model.robot.angle = vectorToAngle(model.robot.direction);
   },
   dropToken(model) {
     if (model.robot.compartment.hold > 0) {

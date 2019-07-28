@@ -5,7 +5,7 @@
       <Editor
         editor-id="peridot"
         :content="content"
-        theme="monokai"
+        theme="github"
         :errors="errorBag"
         @change-content="changeContent"/>
     </div>
@@ -88,10 +88,11 @@ export default {
 }
 .editor-gabarit {
   height: 100%;
-  flex: 1;
+  flex: 2;
+  padding: 24px;
 }
 .kinder-gartner {
-  flex: 1;
+  flex: 3;
   height: 100%;
 }
 </style>

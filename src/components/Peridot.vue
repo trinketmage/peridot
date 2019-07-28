@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     angle() {
-      return vectorToAngle(store.robot.direction)
+      return store.robot.angle
     },
     transform() {
       const {position} = store.robot

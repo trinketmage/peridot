@@ -9,6 +9,7 @@ export default [
         x: 0,
         y: 0
       },
+      angle: 0,
       direction: {
         x: 1,
         y: 0
