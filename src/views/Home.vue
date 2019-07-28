@@ -16,8 +16,11 @@
 import Editor from "@/components/Editor.vue"
 import KinderGartner from "@/components/KinderGartner.vue"
 
+import scenarios from "@/assets/Scenarios";
 import Instructions from '@/pure/Instructions'
 import store from '@/store/index'
+import cloneDeep from "lodash/fp/cloneDeep";
+import { formatScenerioGrid } from "@/pure/ScenarioUtils";
 
 export default {
   name: "home",
@@ -39,16 +42,9 @@ export default {
   },
   methods: {
     changeContent (value) {
-      store.robot = {
-        position: {
-          x: 0,
-          y: 0
-        },
-        direction: {
-          x: 0,
-          y: 1
-        }
-      }
+      store.robot = cloneDeep(scenarios[0].robot)
+      store.grid = formatScenerioGrid(scenarios[0])
+
       this.content = value
       this.checkInstructions(value)
     },

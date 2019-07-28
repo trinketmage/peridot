@@ -1,5 +1,5 @@
 <template>
-  <div class="cell-sizer" v-if="data">
+  <div class="cell-sizer" v-if="data && data.tokens > 0">
     {{data.tokens}}
   </div>
 </template>
@@ -20,5 +20,7 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+  padding: 4px;
+  font-size: 12px;
 }
 </style>

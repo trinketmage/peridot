@@ -3,15 +3,15 @@ export default [
     robot: {
       compartment: {
         capacity: 10,
-        hold: 0
+        hold: 3
       },
       position: {
         x: 0,
         y: 0
       },
       direction: {
-        x: 0,
-        y: 1
+        x: 1,
+        y: 0
       }
     },
     columns: 5,

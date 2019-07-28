@@ -32,5 +32,20 @@ export default {
       x: 0,
       y: -1
     };
-  }
+  },
+  dropToken(model) {
+    if (model.robot.compartment.hold > 0) {
+      const { x, y } = model.robot.position;
+      model.grid.data[y][x].tokens++;
+      model.robot.compartment.hold--;
+    }
+  },
+  pickToken(model) {
+    const { x, y } = model.robot.position;
+    if (model.grid.data[y][x].tokens > 0) {
+      model.grid.data[y][x].tokens--;
+      model.robot.compartment.hold++;
+    }
+  },
+  end() {}
 };

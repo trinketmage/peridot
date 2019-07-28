@@ -63,6 +63,8 @@ export default {
   }
 }
 .token-board {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
   position: absolute;
   right: 28px;
   top: 28px;
