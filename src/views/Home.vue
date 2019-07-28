@@ -31,13 +31,21 @@ export default {
   data () {
     return {
       content: "",
-      errorBag: [],
-      keys: Object.keys(Instructions)
+      errorBag: []
     }
   },
   computed: {
     robot() {
       return store.robot
+    },
+    i18nInstructions() {
+      const i18nInstructions = {}
+      for(const key in Instructions) {
+        if(this.$te(key)) {
+          i18nInstructions[this.$t(key)] = Instructions[key]
+        }
+      }
+      return i18nInstructions
     }
   },
   methods: {
@@ -54,7 +62,7 @@ export default {
       for (let i = 0; i < inputs.length; i++) {
         const str = inputs[i].replace(/\s/g, '')
           if (str) {
-            if (this.keys.indexOf(str) === -1) {
+            if (Object.keys(this.i18nInstructions).indexOf(str) === -1) {
               errors.push({
                   row: i,
                   column: 0,
@@ -63,7 +71,7 @@ export default {
               })
               break;
             } else {
-              Instructions[str](store)
+              this.i18nInstructions[str](store)
             }
           }
       }
