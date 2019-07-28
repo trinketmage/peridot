@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import locale from "@/i18n/locale";
 
 Vue.use(Router);
 
@@ -19,7 +20,7 @@ const router = new Router({
     },
     {
       path: "*",
-      redirect: { path: "/en" }
+      redirect: { path: `/${locale}` }
     }
   ]
 });

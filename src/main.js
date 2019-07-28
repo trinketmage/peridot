@@ -8,9 +8,9 @@ import store from "./store/index";
 import messages from "@/i18n/index";
 
 Vue.config.productionTip = false;
-
+import locale from "@/i18n/locale";
 const i18n = new VueI18n({
-  locale: "fr",
+  locale,
   messages
 });
 
