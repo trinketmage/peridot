@@ -2,7 +2,7 @@
   <div
     class="peridot"
     :style="{
-      transform: `translateX(${position.x * 100}%) translateY(${position.y * 100}%) rotate(${angle}deg)`
+      transform
     }">
     <svg height="100%" width="100%" viewBox="0 0 200 200">
       <polygon points="0,0 0,200 200,100"/>
@@ -37,6 +37,10 @@ export default {
   computed: {
     angle() {
       return vectorToAngle(this.direction)
+    },
+    transform() {
+      const {position, angle} = this
+      return `translateX(${position.x * 100}%) translateY(${position.y * 100}%) rotate(${angle}deg)`
     }
   }
 }
