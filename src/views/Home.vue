@@ -57,27 +57,27 @@ export default {
       this.checkInstructions(value)
     },
     submit(value) {
-      this.changeContent(value)
-      this.checkInstructions()
+      // this.changeContent(value)
+      // this.checkInstructions(value)
     },
     checkInstructions (value) {
       const inputs = this.content.split('\n')
       const errors = []
       for (let i = 0; i < inputs.length; i++) {
         const str = inputs[i].replace(/\s/g, '')
-          if (str) {
-            if (Object.keys(this.i18nInstructions).indexOf(str) === -1) {
-              errors.push({
-                  row: i,
-                  column: 0,
-                  text: `L'instruction ligne ${i + 1} est erronée`,
-                  type: "error"
-              })
-              break;
-            } else {
-              this.i18nInstructions[str](store)
-            }
+        if (str) {
+          if (Object.keys(this.i18nInstructions).indexOf(str) === -1) {
+            errors.push({
+                row: i,
+                column: 0,
+                text: `L'instruction ligne ${i + 1} est erronée`,
+                type: "error"
+            })
+            break;
+          } else {
+            this.i18nInstructions[str](store)
           }
+        }
       }
       this.errorBag = errors
     }

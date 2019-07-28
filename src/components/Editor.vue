@@ -41,15 +41,14 @@ export default {
     }
   },
   methods:{
-
     onCmReady(cm) {
-      console.log('the editor is readied!', cm)
+      // console.log('the editor is readied!', cm)
     },
     onCmFocus(cm) {
-      console.log('the editor is focus!', cm)
+      // console.log('the editor is focus!', cm)
     },
     onCmCodeChange(newCode) {
-      console.log('this is new code', newCode)
+      // console.log('this is new code', newCode)
       this.$emit('change-content', newCode)
     },
     submit() {
