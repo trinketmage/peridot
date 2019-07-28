@@ -1,0 +1,4 @@
+{
+  forward: 'move',
+  turnLeft: 'left'
+}
