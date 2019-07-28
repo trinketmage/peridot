@@ -6,7 +6,7 @@ export default {
     model.robot.position.y += model.robot.direction.y;
   },
   turnLeft(model) {
-    const newAngle = vectorToAngle(model.robot.direction) + 90;
+    const newAngle = vectorToAngle(model.robot.direction) - 90;
     model.robot.direction = angleToVector(newAngle);
   },
   lookSouth(model) {
