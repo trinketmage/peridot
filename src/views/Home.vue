@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <kinder-gartner/>
     <div class="editor-gabarit">
       <Editor
         editor-id="peridot"
@@ -8,7 +9,6 @@
         :errors="errorBag"
         @change-content="changeContent"/>
     </div>
-    <kinder-gartner/>
   </div>
 </template>
 

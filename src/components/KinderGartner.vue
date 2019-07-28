@@ -1,6 +1,6 @@
 <template>
   <div class="kinder-gartner">
-    <div class="token-board">Tokens: {{compartment.hold}} / {{compartment.capacity}}</div>
+    <div class="token-board">{{compartment.hold}} / {{compartment.capacity}}<span class="label">TOKENS</span></div>
     <div class="container">
       <table class="table" cellspacing="0">
         <tr class="row" v-for="x in rows">
@@ -49,10 +49,12 @@ export default {
 
 <style scoped lang="scss">
 .kinder-gartner {
-  background-color: #7ae8ff;
+  background-color: #ffffff;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .container {
   position: relative;
@@ -63,16 +65,25 @@ export default {
     .cell {
       width: 48px;
       height: 48px;
-      border: 1px solid #364781;
+      border: 2px solid #ffffff;
+      background-color: #f6f9fc;
       position: relative
     }
   }
 }
 .token-board {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
+  // font-size: 12px;
+  color: #32325d;
   position: absolute;
   right: 28px;
   top: 28px;
+  font-size: 38px;
+  text-align: center;
+  .label{
+    display: block;
+    font-size: 19px;
+    color: #8898aa;
+    margin-top: 7px;
+  }
 }
 </style>

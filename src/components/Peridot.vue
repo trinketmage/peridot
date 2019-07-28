@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 .peridot {
   position: absolute;
@@ -62,5 +61,9 @@ export default {
   top: 0px;
   // border-radius: 20px;
   transition: transform .3s ease;
+  polygon {
+    fill: #24b47e;
+    stroke: rgb(185, 244, 188);
+  }
 }
 </style>

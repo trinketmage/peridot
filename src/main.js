@@ -15,7 +15,6 @@ const i18n = new VueI18n({
 });
 
 router.beforeEach((to, from, next) => {
-  // ...
   i18n.locale = to.params.locale;
   next();
 });

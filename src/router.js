@@ -16,6 +16,10 @@ const router = new Router({
       path: "/:locale/about",
       name: "about",
       component: () => import("./views/About.vue")
+    },
+    {
+      path: "*",
+      redirect: { path: "/en" }
     }
   ]
 });
