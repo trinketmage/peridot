@@ -12,6 +12,8 @@
 
 <script>
 import {vectorToAngle} from '@/pure/trigonometry'
+
+import store from '@/store/index'
 export default {
   props:
   {
@@ -36,10 +38,11 @@ export default {
   },
   computed: {
     angle() {
-      return vectorToAngle(this.direction)
+      return vectorToAngle(store.robot.direction)
     },
     transform() {
-      const {position, angle} = this
+      const {position} = store.robot
+      const {angle} = this
       return `translateX(${position.x * 100}%) translateY(${position.y * 100}%) rotate(${angle}deg)`
     }
   }

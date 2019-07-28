@@ -8,7 +8,7 @@
         :errors="errorBag"
         @change-content="changeContent"/>
     </div>
-    <kinder-gartner :robot="robot"/>
+    <kinder-gartner/>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import Editor from "@/components/Editor.vue"
 import KinderGartner from "@/components/KinderGartner.vue"
 
 import Instructions from '@/pure/Instructions'
+import store from '@/store/index'
 
 export default {
   name: "home",
@@ -29,25 +30,30 @@ export default {
       content: "",
       errorBag: [],
       keys: Object.keys(Instructions),
-      robot: {
-        compartment: {
-          capacity: 10,
-          hold: 0
-        },
-        position: {
-          x: 0,
-          y: 0
-        },
-        direction: {
-          x: 0,
-          y: 1
-        }
-      }
+      // robot: {
+      //   compartment: {
+      //     capacity: 10,
+      //     hold: 0
+      //   },
+      //   position: {
+      //     x: 0,
+      //     y: 0
+      //   },
+      //   direction: {
+      //     x: 0,
+      //     y: 1
+      //   }
+      // }
+    }
+  },
+  computed: {
+    robot() {
+      return store.robot
     }
   },
   methods: {
     changeContent (value) {
-      this.robot = {
+      store.robot = {
         position: {
           x: 0,
           y: 0
@@ -75,7 +81,7 @@ export default {
               })
               break;
             } else {
-              Instructions[str](this)
+              Instructions[str](store)
             }
           }
       }

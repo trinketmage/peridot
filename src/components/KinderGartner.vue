@@ -7,8 +7,6 @@
         </tr>
       </table>
       <Peridot
-        :position="robot.position"
-        :direction="robot.direction"
       />
     </div>
   </div>
@@ -21,11 +19,10 @@ export default {
   components: {
     Peridot
   },
-  props: ['robot'],
   data () {
     return {
-      rows: 10,
-      columns: 10
+      rows: 5,
+      columns: 5
     }
   }
 }
