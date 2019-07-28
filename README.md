@@ -7,7 +7,8 @@ Peridot is an educational game introducing beginners to the fundamentals of algo
 
 ### Links
 [GitHub](https://github.com/trinketmage/peridot)  
-[Web site](http://www.peridot.education)
+[Web site](http://www.peridot.education)  
+[Wiki](https://github.com/trinketmage/peridot/wiki/Pr%C3%A9sentation-et-utilisation-de-Peridot)
 
 ### Contact
 If you have any problems, questions, ideas or suggestions, please send us
@@ -16,8 +17,9 @@ a mail at contact@peridot.education
 ### Authors
 Created by Rémi Tran and Flavie Tonon, 2019
 
-### Licence
-This project is under (coming soon) licence
+### License
+This software is under GNU General Public License v3.0 (GNU GPLv3).  
+Read LICENSE.md for more information.
 
 ## Project setup
 ```

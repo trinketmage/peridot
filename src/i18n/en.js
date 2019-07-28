@@ -1,4 +1,7 @@
 {
   forward: 'move',
-  turnLeft: 'left'
+  turnLeft: 'left',
+  dropToken: 'drop_token',
+  pickToken: 'pick_token',
+  end: 'end'
 }
