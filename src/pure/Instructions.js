@@ -42,7 +42,8 @@ export default {
   },
   pickToken(model) {
     const { x, y } = model.robot.position;
-    if (model.grid.data[y][x].tokens > 0) {
+    const { capacity, hold } = model.robot.compartment;
+    if (model.grid.data[y][x].tokens > 0 && hold < capacity) {
       model.grid.data[y][x].tokens--;
       model.robot.compartment.hold++;
     }
