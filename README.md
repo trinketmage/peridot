@@ -17,7 +17,8 @@ a mail at contact@peridot.education
 Created by Rémi Tran and Flavie Tonon, 2019
 
 ### Licence
-This project is under (coming soon) licence
+This software is under GNU General Public License v3.0 (GNU GPLv3).  
+Read LICENSE.md for more information.
 
 ## Project setup
 ```
