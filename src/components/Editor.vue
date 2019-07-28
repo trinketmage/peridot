@@ -11,7 +11,7 @@
     />
     <div class="editor-footer">
       <a>help</a>
-      <button>run</button>
+      <button><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> run</button>
     </div>
   </div>
 </template>
@@ -105,4 +105,6 @@ export default {
     display: flex
     align-items: center
     justify-content: center
+    polygon
+      fill: #ffffff
 </style>

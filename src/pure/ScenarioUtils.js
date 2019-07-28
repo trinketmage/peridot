@@ -1,3 +1,6 @@
+import cloneDeep from "lodash/fp/cloneDeep";
+import { angleToVector } from "@/pure/trigonometry";
+
 export function formatScenerioGrid(scenario) {
   const { rows, columns, tokens, walls } = scenario;
   let data = Array(rows).fill(0);
@@ -22,4 +25,9 @@ export function formatScenerioGrid(scenario) {
     data,
     walls
   };
+}
+export function formatScenerioRobot(robot) {
+  const newRobot = cloneDeep(robot);
+  newRobot.direction = angleToVector(newRobot.angle);
+  return newRobot;
 }

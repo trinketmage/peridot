@@ -19,8 +19,7 @@ import KinderGartner from "@/components/KinderGartner.vue"
 import scenarios from "@/assets/Scenarios";
 import Instructions from '@/pure/Instructions'
 import store from '@/store/index'
-import cloneDeep from "lodash/fp/cloneDeep";
-import { formatScenerioGrid } from "@/pure/ScenarioUtils";
+import { formatScenerioGrid,formatScenerioRobot } from "@/pure/ScenarioUtils";
 
 export default {
   name: "home",
@@ -50,7 +49,7 @@ export default {
   },
   methods: {
     changeContent (value) {
-      store.robot = cloneDeep(scenarios[0].robot)
+      store.robot = formatScenerioRobot(scenarios[0].robot)
       store.grid = formatScenerioGrid(scenarios[0])
 
       this.content = value

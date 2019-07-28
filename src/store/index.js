@@ -1,8 +1,7 @@
-import cloneDeep from "lodash/fp/cloneDeep";
-import { formatScenerioGrid } from "@/pure/ScenarioUtils";
+import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";
 import scenarios from "@/assets/Scenarios";
 export default {
-  robot: cloneDeep(scenarios[0].robot),
+  robot: formatScenerioRobot(scenarios[0].robot),
   grid: formatScenerioGrid(scenarios[0]),
   scenarios
 };
