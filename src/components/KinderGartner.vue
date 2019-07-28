@@ -9,6 +9,7 @@
           </td>
         </tr>
       </table>
+      <!-- <Wall v-for="wall in walls" :data="wall"/> -->
       <Peridot/>
     </div>
   </div>
@@ -17,12 +18,14 @@
 <script>
 import Peridot from "@/components/Peridot.vue"
 import Cell from "@/components/Cell.vue"
+import Wall from "@/components/Wall.vue"
 import store from '@/store/index'
 
 export default {
   components: {
     Peridot,
-    Cell
+    Cell,
+    Wall
   },
   computed: {
     rows() {
@@ -33,6 +36,9 @@ export default {
     },
     data() {
       return store.grid.data
+    },
+    walls() {
+      return store.grid.walls
     },
     compartment() {
       return store.robot.compartment

@@ -1,5 +1,5 @@
 export function formatScenerioGrid(scenario) {
-  const { rows, columns, tokens } = scenario;
+  const { rows, columns, tokens, walls } = scenario;
   let data = Array(rows).fill(0);
   data = data.map(() => {
     return Array(columns)
@@ -19,6 +19,7 @@ export function formatScenerioGrid(scenario) {
   return {
     rows,
     columns,
-    data
+    data,
+    walls
   };
 }
