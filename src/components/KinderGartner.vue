@@ -1,6 +1,6 @@
 <template>
   <div class="kinder-gartner">
-    <div class="token-board">{{compartment.hold}} / {{compartment.capacity}}<span class="label">TOKENS</span></div>
+    <div class="token-board">{{compartment.hold}} / {{compartment.capacity}}<span class="label">{{ $t('tokens') }}</span></div>
     <div class="container">
       <table class="table" cellspacing="0">
         <tr class="row" v-for="x in rows">
@@ -82,6 +82,7 @@ export default {
     font-size: 19px;
     color: #8898aa;
     margin-top: 7px;
+		text-transform: uppercase;
   }
 }
 </style>

@@ -10,8 +10,8 @@
       @input="onCmCodeChange"
     />
     <div class="editor-footer">
-      <a>help</a>
-      <button @click="submit"><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> run</button>
+      <a>{{ $t('help') }}</a>
+      <button @click="submit"><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> {{ $t('run') }}</button>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
         theme: 'base16-dark',
         lineNumbers: true,
 
-        placeholder: 'hello world'
+        placeholder: this.$t('placeholder')
       }
     }
   },
