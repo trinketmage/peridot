@@ -94,6 +94,7 @@ export default {
   height: 100%;
   flex: 2;
   padding: 24px;
+	overflow: auto;
 }
 .kinder-gartner {
   flex: 3;

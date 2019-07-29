@@ -6,7 +6,21 @@
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+::selection {
+  background-color: #f33e35;
+  color: #ffffff;
+}
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
 
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #6772e4;
+}
 * {
   box-sizing: border-box;
 }
