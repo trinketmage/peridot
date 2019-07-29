@@ -1,5 +1,4 @@
 <template>
-  <!-- <div :id="editorId" style="width: 100%; height: 100%;"></div> -->
   <div class="editor-container">
     <codemirror
       ref="myCm"
