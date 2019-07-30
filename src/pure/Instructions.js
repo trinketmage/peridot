@@ -1,7 +1,7 @@
 import { vectorToAngle, angleToVector } from "@/pure/trigonometry";
 
-function checkBounds({ x, y }, model) {
-  if (x >= 0 && y >= 0 && x < model.grid.columns && y < model.grid.rows) {
+function checkBounds({ x, y }, { columns, rows }) {
+  if (x >= 0 && y >= 0 && x < columns && y < rows) {
     return true;
   } else {
     return false;
@@ -15,7 +15,7 @@ export default {
       x: position.x + direction.x,
       y: position.y + direction.y
     };
-    if (checkBounds(destination, model)) {
+    if (checkBounds(destination, model.grid)) {
       model.robot.position = destination;
     }
   },
