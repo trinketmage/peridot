@@ -61,12 +61,12 @@ export default {
 }
 .table {
   border-collapse: collapse;
+	background-color: #ffffff;
   .row {
     .cell {
       width: 48px;
       height: 48px;
       border: 4px solid #f6f9fc;
-      background-color: #ffffff;
       position: relative
     }
   }
