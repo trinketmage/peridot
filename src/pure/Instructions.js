@@ -1,41 +1,27 @@
 import { vectorToAngle, angleToVector } from "@/pure/trigonometry";
 
+function checkBounds({ x, y }, model) {
+  if (x >= 0 && y >= 0 && x < model.grid.columns && y < model.grid.rows) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export default {
   forward(model) {
-    model.robot.position.x += model.robot.direction.x;
-    model.robot.position.y += model.robot.direction.y;
+    const { direction, position } = model.robot;
+    const destination = {
+      x: position.x + direction.x,
+      y: position.y + direction.y
+    };
+    if (checkBounds(destination, model)) {
+      model.robot.position = destination;
+    }
   },
   turnLeft(model) {
     model.robot.angle -= 90;
     model.robot.direction = angleToVector(model.robot.angle);
-  },
-  lookSouth(model) {
-    model.robot.direction = {
-      x: 0,
-      y: 1
-    };
-    model.robot.angle = vectorToAngle(model.robot.direction);
-  },
-  lookEast(model) {
-    model.robot.direction = {
-      x: 1,
-      y: 0
-    };
-    model.robot.angle = vectorToAngle(model.robot.direction);
-  },
-  lookWest(model) {
-    model.robot.direction = {
-      x: -1,
-      y: 0
-    };
-    model.robot.angle = vectorToAngle(model.robot.direction);
-  },
-  lookNorth(model) {
-    model.robot.direction = {
-      x: 0,
-      y: -1
-    };
-    model.robot.angle = vectorToAngle(model.robot.direction);
   },
   dropToken(model) {
     if (model.robot.compartment.hold > 0) {
@@ -53,4 +39,32 @@ export default {
     }
   },
   end() {}
+  // lookSouth(model) {
+  //   model.robot.direction = {
+  //     x: 0,
+  //     y: 1
+  //   };
+  //   model.robot.angle = vectorToAngle(model.robot.direction);
+  // },
+  // lookEast(model) {
+  //   model.robot.direction = {
+  //     x: 1,
+  //     y: 0
+  //   };
+  //   model.robot.angle = vectorToAngle(model.robot.direction);
+  // },
+  // lookWest(model) {
+  //   model.robot.direction = {
+  //     x: -1,
+  //     y: 0
+  //   };
+  //   model.robot.angle = vectorToAngle(model.robot.direction);
+  // },
+  // lookNorth(model) {
+  //   model.robot.direction = {
+  //     x: 0,
+  //     y: -1
+  //   };
+  //   model.robot.angle = vectorToAngle(model.robot.direction);
+  // }
 };

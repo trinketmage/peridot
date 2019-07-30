@@ -12,7 +12,7 @@ export default [
       angle: 90
     },
     columns: 5,
-    rows: 5,
+    rows: 6,
     tokens: [
       {
         x: 3,
