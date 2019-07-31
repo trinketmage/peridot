@@ -1,0 +1,18 @@
+/**
+    Name: peridot theme
+ */
+
+.cm-s-peridot span.cm-right { color: red; }
+.cm-s-peridot span.cm-left { color: blue; }
+.cm-s-peridot span.cm-picktoken { color: violet; }
+.cm-s-peridot span.cm-droptoken { color: pink; }
+.cm-s-peridot span.cm-end { color: green; }
+.cm-s-peridot span.cm-condition { color: orange; }
+.cm-s-peridot span.cm-number { color: lightblue; }
+.cm-s-peridot span.cm-structure { color: darkblue; }
+
+.cm-s-peridot .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
+.cm-s-peridot .CodeMirror-activeline-background { background: #323232; }
+.cm-s-peridot .CodeMirrir-linenumber { color: #606366; }
+
+.cm-s-peridot div.CodeMirror-selected { background: light-gray; }

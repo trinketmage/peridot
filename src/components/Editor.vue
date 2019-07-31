@@ -18,9 +18,67 @@
 <script>
 
 import { codemirror } from 'vue-codemirror'
-
+import  cm  from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/display/placeholder'
+import 'codemirror/addon/mode/simple'
+import 'codemirror/mode/javascript/javascript'
+
+import './peridot.css'
+
+
+/* Example definition of a simple mode that understands a subset of
+ * JavaScript:
+ */
+
+cm.defineSimpleMode("simplemode", {
+  // The start state contains the rules that are intially used
+  start: [
+    {regex: /(gauche)/, token: "left"},
+    {regex: /(droite)/, token: "right"},
+    {regex: /(prend_un_jeton)/, token: "picktoken"},
+    {regex: /(pose_un_jeton)/, token: "droptoken"},
+    {regex: /(fin)/, token: "end"},
+    // The regex matches the token, the token property contains the type
+    {regex: /"(?:[^\\]|\\.)*?(?:"|$)/, token: "string"},
+    // You can match multiple tokens at once. Note that the captured
+    // groups must span the whole string in this case
+    {regex: /(function)(\s+)([a-z$][\w$]*)/,
+     token: ["keyword", null, "variable-2"]},
+    // Rules are matched in the order in which they appear, so there is
+    // no ambiguity between this one and the one above
+    {regex: /(?:définir|si|sinon_si|sinon|tant_que)\b/,
+     token: "structure"},
+     {regex: /(répéter)\s+(?:[0-9])*\s+(fois)\b/,
+      token: "structure"},
+    {regex: /(!)?(mur_en_face|mur_a_gauche|mur_a_droite|sur_un_jeton|a_des_jetons|regarde_nord|regarde_sud|regarde_ouest|regarde_est)/,
+      token: "condition"},
+    {regex: /true|false|null|undefined/, token: "atom"},
+    {regex: /[0-9]+/i,
+     token: "number"},
+    {regex: /\/\/.*/, token: "comment"},
+    {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
+    // A next property will cause the mode to move to a different state
+    {regex: /\/\*/, token: "comment", next: "comment"},
+    // You can embed other modes with the mode property. This rule
+    // causes all code between << and >> to be highlighted with the XML
+    // mode.
+    {regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
+  ],
+  // The multi-line comment state.
+  comment: [
+    {regex: /.*?\*\//, token: "comment", next: "start"},
+    {regex: /.*/, token: "comment"}
+  ],
+  // The meta property contains global information about the mode. It
+  // can contain properties like lineComment, which are supported by
+  // all modes, and also directives like dontIndentStates, which are
+  // specific to simple modes.
+  meta: {
+    dontIndentStates: ["comment"],
+    lineComment: "//"
+  }
+});
 
 export default {
   components: {
@@ -31,8 +89,8 @@ export default {
     return {
       cmOptions: {
         tabSize: 4,
-        mode: 'text/javascript',
-        theme: 'base16-dark',
+        mode: 'simplemode',
+        theme: 'peridot',
         lineNumbers: true,
 
         placeholder: this.$t('placeholder')
@@ -103,4 +161,5 @@ export default {
     cursor: pointer
     polygon
       fill: #ffffff
+
 </style>
