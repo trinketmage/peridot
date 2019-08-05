@@ -1,20 +1,7 @@
 /**
     Name: peridot theme
  */
- /*
 
-     Name:       Base16 Default Light
-     Author:     Chris Kempson (http://chriskempson.com)
-
-     CodeMirror template by Jan T. Sott (https://github.com/idleberg/base16-codemirror)
-     Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
-
- */
-
-  .cm-tab{
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWOQkpLyZfD09PwPAAfYAnaStpHRAAAAAElFTkSuQmCC) right repeat-y;
-  }
- /*.cm-s-peridot span.cm-comment { color: #8f5536; }*/
  .cm-s-peridot span.cm-atom { color: #aa759f; }
  .cm-s-peridot span.cm-number { color: darkgrey; font-family:Courier;}
 
@@ -22,14 +9,10 @@
  .cm-s-peridot span.cm-keyword { color: brown; }
  .cm-s-peridot span.cm-string { color: #f4bf75; }
 
- .cm-s-peridot span.cm-tag { color: #ac4142; }
- .cm-s-peridot span.cm-link { color: #aa759f; }
  .cm-s-peridot span.cm-error { background: #ac4142; color: #505050; }
 
  .cm-s-peridot .CodeMirror-activeline-background { background: #DDDCDC; }
 
-
-/*custom keywords*/
  .cm-s-peridot span.cm-left { color: #00b47d; }
  .cm-s-peridot span.cm-move { color: #00b47d; }
  .cm-s-peridot span.cm-picktoken { color: #00b47d;}
@@ -39,19 +22,4 @@
  .cm-s-peridot span.cm-delimiters { color: #00b47d;}
  .cm-s-peridot span.cm-newinstruction { color:darkblue; text-decoration: underline;}
 
-
  .cm-s-peridot span.cm-comment { color: #8f5536; font-style: italic; }
-
-/*
- .cm-s-peridot span.cm-variable-3 { color: red; font-weight: bold;}
-.cm-s-peridot span.cm-end { color: green; font-weight: bold;}
-.cm-s-peridot span.cm-number { color: lightblue; font-weight: bold;}
-.cm-s-peridot span.cm-structure { color: darkblue; font-weight: bold;}
-
-
-.cm-s-peridot .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
-.cm-s-peridot .CodeMirror-activeline-background { background: #323232; }
-.cm-s-peridot .CodeMirrir-linenumber { color: #606366; }
-
-.cm-s-peridot div.CodeMirror-selected { background: light-gray; }
-*/
