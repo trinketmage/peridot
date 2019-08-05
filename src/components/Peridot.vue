@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import {vectorToAngle} from '@/pure/trigonometry'
-
+import {vectorToAngle} from '@trinketmage/sword'
 import store from '@/store/index'
 export default {
   props:

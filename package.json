@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@trinketmage/sword": "0.0.2",
     "gsap": "^2.0.2",
     "lodash": "^4.17.15",
     "vue": "^2.5.17",

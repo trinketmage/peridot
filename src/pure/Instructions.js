@@ -1,4 +1,4 @@
-import { vectorToAngle, angleToVector } from "@/pure/trigonometry";
+import { vectorToAngle, angleToVector } from "@trinketmage/sword";
 
 function checkBounds({ x, y }, { columns, rows }) {
   if (x >= 0 && y >= 0 && x < columns && y < rows) {
