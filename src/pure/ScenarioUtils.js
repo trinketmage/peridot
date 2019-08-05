@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/fp/cloneDeep";
-import { angleToVector } from "@/pure/trigonometry";
+import { angleToVector } from "@trinketmage/sword";
 
 export function formatScenerioGrid(scenario) {
   const { rows, columns, tokens, walls } = scenario;
