@@ -23,7 +23,7 @@ export default {
   },
   structures:{
     define: "define",
-    repeat: "repea",
+    repeat: "repeat",
     times: "times",
     if: "if",
     elseif: "else_if",

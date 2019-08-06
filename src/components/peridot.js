@@ -20,18 +20,30 @@ import locale from "@/i18n/locale";
 
 
   ////////// setup arrays of keywords
-  var wordOperators = wordRegexp(["et", "ou", "!"]);
-  var commonKeywords = ["définir", "tant_que", "répéter", "fois",
-    "sinon", "si", "sinon_si"
+  var wordOperators = wordRegexp([messages[locale].operators.and,
+    messages[locale].operators.or, "!"]);
+  var commonKeywords = [messages[locale].structures.define,
+  messages[locale].structures.while,
+  messages[locale].structures.repeat,
+  messages[locale].structures.times,
+  messages[locale].structures.else,
+  messages[locale].structures.if,
+  messages[locale].structures.elseif
   ];
-  var conditionKeywords = ["mur_en_face", "mur_a_gauche", "mur_a_droite",
-    "sur_un_jeton", "a_des_jetons", "regarde_nord",
-    "regarde_sud", "regarde_ouest", "regarde_est"
+  var conditionKeywords = [messages[locale].conditions.wallFace,
+  messages[locale].conditions.wallLeft,
+  messages[locale].conditions.wallRight,
+  messages[locale].conditions.onToken,
+  messages[locale].conditions.hasToken,
+  messages[locale].conditions.faceNorth,
+  messages[locale].conditions.faceSouth,
+  messages[locale].conditions.faceWest,
+  messages[locale].conditions.faceEast
   ];
   var move = [messages[locale].instructions.forward];
-  var left = ["gauche"];
-  var drop = ["pose_un_jeton"];
-  var pick = ["prend_un_jeton"];
+  var left = [messages[locale].instructions.turnLeft];
+  var drop = [messages[locale].instructions.dropToken];
+  var pick = [messages[locale].instructions.pickToken];
 
   var newWords = [];
 
@@ -121,7 +133,7 @@ import locale from "@/i18n/locale";
       }
 
       if (stream.match(identifiers)) {
-        if (state.lastToken == "définir" && stream.peek() != null) {
+        if (state.lastToken == messages[locale].structures.define && stream.peek() != null) {
           if (newWords.length == 0 || newWords.indexOf(stream.current()) == -1) {
             newWords.push(stream.current());
           }
