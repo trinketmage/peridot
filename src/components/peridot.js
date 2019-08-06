@@ -11,7 +11,6 @@ import cm from 'codemirror'
     mod(cm);
 })(function(cm) {
   "use strict";
-
   ////////// array to regex
   function wordRegexp(words) {
     return new RegExp("^((" + words.join(")|(") + "))\\b");
@@ -26,6 +25,11 @@ import cm from 'codemirror'
     "sur_un_jeton", "a_des_jetons", "regarde_nord",
     "regarde_sud", "regarde_ouest", "regarde_est"
   ];
+  var move = ["forward"];
+  var left = ["gauche"];
+  var drop = ["pose_un_jeton"];
+  var pick = ["prend_un_jeton"];
+
   var newWords = [];
 
   ////////// top : back to previous scope state
@@ -101,13 +105,13 @@ import cm from 'codemirror'
         return "condition";
 
       //custom keywords
-      if (stream.match(/avance\b/))
+      if (stream.match(wordRegexp(move)))
         return "move";
-      if (stream.match(/gauche\b/))
+      if (stream.match(wordRegexp(left)))
         return "left";
-      if (stream.match(/pose_un_jeton\b/))
+      if (stream.match(wordRegexp(drop)))
         return "droptoken";
-      if (stream.match(/prend_un_jeton\b/))
+      if (stream.match(wordRegexp(pick)))
         return "picktoken";
       if (newWords.length > 0 && stream.match(wordRegexp(newWords))) {
         return "newinstruction";
