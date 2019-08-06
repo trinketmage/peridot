@@ -1,6 +1,8 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 import cm from 'codemirror'
+import messages from "@/i18n/index";
+import locale from "@/i18n/locale";
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -16,6 +18,7 @@ import cm from 'codemirror'
     return new RegExp("^((" + words.join(")|(") + "))\\b");
   }
 
+
   ////////// setup arrays of keywords
   var wordOperators = wordRegexp(["et", "ou", "!"]);
   var commonKeywords = ["définir", "tant_que", "répéter", "fois",
@@ -25,7 +28,7 @@ import cm from 'codemirror'
     "sur_un_jeton", "a_des_jetons", "regarde_nord",
     "regarde_sud", "regarde_ouest", "regarde_est"
   ];
-  var move = ["forward"];
+  var move = [messages[locale].instructions.forward];
   var left = ["gauche"];
   var drop = ["pose_un_jeton"];
   var pick = ["prend_un_jeton"];
