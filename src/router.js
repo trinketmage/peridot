@@ -14,7 +14,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/:locale/mission/:slug",
+      path: "/:locale/mission/:id",
       name: "mission",
       component: () => import("./views/Mission.vue")
     },

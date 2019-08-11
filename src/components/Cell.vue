@@ -5,22 +5,18 @@
       {
         'bottom-wall': data.bottom.wall,
         'right-wall': data.right.wall,
-        'arrival': data.arrival,
+        arrival: data.arrival
       }
     ]"
   >
-  <!-- {{data}} -->
+    <!-- {{data}} -->
     <div class="cell-sizer">
       <transition name="number-fold">
-        <span
-          class="count-holder"
-          :key="data.tokens"
-          v-if="data.tokens > 0"
-        >{{data.tokens}}</span>
+        <span class="count-holder" :key="data.tokens" v-if="data.tokens > 0">{{
+          data.tokens
+        }}</span>
       </transition>
-      <div
-        class="token-holder"
-      >
+      <div class="token-holder">
         <span
           :key="i"
           class="token"
@@ -36,13 +32,13 @@
 
 <script>
 export default {
-  props: ['data'],
+  props: ["data"],
   computed: {
     transform() {
-      return `translateX(${-2 * (this.data.tokens - 1)}px)`
+      return `translateX(${-2 * (this.data.tokens - 1)}px)`;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -50,7 +46,7 @@ export default {
   width: 48px;
   height: 48px;
   border: 4px solid #f6f9fc;
-  position: relative
+  position: relative;
 }
 .bottom-wall {
   border-bottom-color: #6772e5;
@@ -72,7 +68,7 @@ export default {
   justify-content: flex-end;
   padding: 4px;
   font-size: 12px;
-  color: #8798aa
+  color: #8798aa;
 }
 .token-holder {
   position: absolute;
@@ -88,10 +84,10 @@ export default {
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(#ffcba3, .875);
+  border: 2px solid rgba(#ffcba3, 0.875);
   border-radius: 50%;
 
-  &+.token {
+  & + .token {
     margin-left: -11px;
   }
 }

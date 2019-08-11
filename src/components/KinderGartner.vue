@@ -3,10 +3,12 @@
     <div class="token-board" v-if="compartment.capacity > 0">
       <span class="helper">
         <transition name="number-fold">
-          <span :key="compartment.hold" class="count-helper">{{ compartment.hold }}</span>
+          <span :key="compartment.hold" class="count-helper">{{
+            compartment.hold
+          }}</span>
         </transition>
-      </span> / {{ compartment.capacity
-      }}<span class="label">{{ $t("tokens") }}</span>
+      </span>
+      / {{ compartment.capacity }}<span class="label">{{ $t("tokens") }}</span>
     </div>
     <div class="container">
       <table class="table" cellspacing="0">

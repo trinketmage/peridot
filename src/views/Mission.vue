@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="mission">
     <kinder-gartner/>
     <div class="editor-gabarit">
       <Editor/>
@@ -22,7 +22,7 @@ export default {
     KinderGartner
   },
   data() {
-    const idx = parseInt(this.$route.params.slug) - 1
+    const idx = parseInt(this.$route.params.id) - 1
     store.scenarioIdx = idx
     store.robot = formatScenerioRobot(scenarios[idx].robot)
     store.grid = formatScenerioGrid(scenarios[idx])
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
+.mission {
   height: 100%;
   display: flex;
 }

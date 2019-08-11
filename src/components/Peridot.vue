@@ -58,6 +58,7 @@ export default {
   left: 2px;
   top: 2px;
   transition: transform .3s ease;
+  will-change: transform;
   polygon {
     fill: #24b47e;
     stroke: rgb(185, 244, 188);
