@@ -25,21 +25,43 @@ import 'codemirror/addon/display/placeholder'
 import './peridot.css'
 import './peridot.js'
 
+import scenarios from "@/assets/Scenarios";
+import Instructions from '@/pure/Instructions'
+import store from '@/store/index'
+import { formatScenerioGrid,formatScenerioRobot } from "@/pure/ScenarioUtils";
+
 export default {
   components: {
     codemirror
   },
-  props: ['editorId', 'content', 'lang', 'theme', 'errors'],
   data () {
     return {
+      content: '',
+      errorBag: [],
       cmOptions: {
         tabSize: 4,
         mode: 'peridot',
         theme: 'peridot',
         lineNumbers: true,
-
         placeholder: this.$t('placeholder')
       }
+    }
+  },
+  // created() {
+  //   this.changeContent()
+  // },
+  computed: {
+    robot() {
+      return store.robot
+    },
+    i18nInstructions() {
+      const i18nInstructions = {}
+      for(const key in Instructions) {
+        if(this.$te(`instructions.${key}`)) {
+          i18nInstructions[this.$t(`instructions.${key}`)] = Instructions[key]
+        }
+      }
+      return i18nInstructions
     }
   },
   methods:{
@@ -51,10 +73,42 @@ export default {
     },
     onCmCodeChange(newCode) {
       // console.log('this is new code', newCode)
-      this.$emit('change-content', newCode)
+      this.changeContent(newCode)
     },
-    submit() {
-      this.$emit('submit', this.content)
+    changeContent (value) {
+      store.robot = formatScenerioRobot(scenarios[store.scenarioIdx].robot)
+      store.grid = formatScenerioGrid(scenarios[store.scenarioIdx])
+      this.content = value
+      this.checkInstructions()
+    },
+    submit(value, e) {
+      console.log("submit")
+      // this.changeContent(this.content)
+      // this.checkInstructions()
+    },
+    checkInstructions () {
+      const inputs = this.content.split('\n')
+      const errors = []
+      for (let i = 0; i < inputs.length; i++) {
+        const str = inputs[i].replace(/\s/g, '')
+        if (str) {
+          if (Object.keys(this.i18nInstructions).indexOf(str) === -1) {
+            errors.push({
+                row: i,
+                column: 0,
+                text: `L'instruction ligne ${i + 1} est erronée`,
+                type: "error"
+            })
+            break;
+          } else {
+            this.i18nInstructions[str]({
+              robot: store.robot,
+              grid: store.grid
+            })
+          }
+        }
+      }
+      this.errorBag = errors
     }
   }
 }

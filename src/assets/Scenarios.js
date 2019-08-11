@@ -1,5 +1,6 @@
 export default [
   {
+    name: "Peridot kills everyone",
     robot: {
       compartment: {
         capacity: 10,
@@ -46,5 +47,21 @@ export default [
         arrival: true
       }
     ]
+  },
+  {
+    name: "Peridot doesn't kill anyone",
+    robot: {
+      compartment: {
+        capacity: 0
+      },
+      position: {
+        x: 0,
+        y: 1
+      },
+      angle: 0
+    },
+    columns: 10,
+    rows: 10,
+    data: []
   }
 ];
