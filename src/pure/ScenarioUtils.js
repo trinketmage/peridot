@@ -10,6 +10,7 @@ export function formatScenerioGrid(scenario) {
       .map(() => {
         return {
           tokens: 0,
+          arrival: false,
           right: {
             wall: false
           },
@@ -20,11 +21,12 @@ export function formatScenerioGrid(scenario) {
       });
   });
   data.forEach(data => {
-    const { x, y, tokens, right, bottom } = data;
+    const { x, y, tokens, right, bottom, arrival } = data;
     const ref = formattedData[y][x];
     if (tokens) ref.tokens = tokens;
     if (bottom) ref.bottom = bottom;
     if (right) ref.right = right;
+    if (arrival) ref.arrival = arrival;
   });
   // console.log(formattedData);
   return {

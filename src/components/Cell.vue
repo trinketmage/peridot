@@ -4,10 +4,12 @@
       'cell',
       {
         'bottom-wall': data.bottom.wall,
-        'right-wall': data.right.wall
+        'right-wall': data.right.wall,
+        'arrival': data.arrival,
       }
     ]"
   >
+  <!-- {{data}} -->
     <div class="cell-sizer" v-if="data && data.tokens > 0">
       {{data.tokens}}
       <div
@@ -47,6 +49,9 @@ export default {
 }
 .right-wall {
   border-right-color: #6772e5;
+}
+.arrival {
+  background-color: #a1ebb1;
 }
 .cell-sizer {
   position: absolute;

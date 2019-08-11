@@ -39,6 +39,11 @@ export default [
         bottom: {
           wall: true
         }
+      },
+      {
+        x: 4,
+        y: 5,
+        arrival: true
       }
     ]
   }
