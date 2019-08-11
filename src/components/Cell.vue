@@ -1,15 +1,27 @@
 <template>
-  <div class="cell-sizer" v-if="data && data.tokens > 0">
-    {{data.tokens}}
-    <div class="token-holder">
-      <span
-        class="token" v-for="token in data.tokens"
-        :style="{
-          transform
-        }"
-      />
+  <td
+    :class="[
+      'cell',
+      {
+        'bottom-wall': data.bottom.wall,
+        'right-wall': data.right.wall
+      }
+    ]"
+  >
+    <div class="cell-sizer" v-if="data && data.tokens > 0">
+      {{data.tokens}}
+      <div
+        class="token-holder"
+      >
+        <span
+          class="token" v-for="token in data.tokens"
+          :style="{
+            transform
+          }"
+        />
+      </div>
     </div>
-  </div>
+  </td>
 </template>
 
 <script>
@@ -24,6 +36,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.cell {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f6f9fc;
+  position: relative
+}
+.bottom-wall {
+  border-bottom-color: #6772e5;
+}
+.right-wall {
+  border-right-color: #6772e5;
+}
 .cell-sizer {
   position: absolute;
   width: 100%;

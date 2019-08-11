@@ -2,27 +2,35 @@ import cloneDeep from "lodash/fp/cloneDeep";
 import { angleToVector } from "@trinketmage/sword";
 
 export function formatScenerioGrid(scenario) {
-  const { rows, columns, tokens, walls } = scenario;
-  let data = Array(rows).fill(0);
-  data = data.map(() => {
+  const { rows, columns, data, walls } = scenario;
+  let formattedData = Array(rows).fill(0);
+  formattedData = formattedData.map(() => {
     return Array(columns)
       .fill(null)
       .map(() => {
         return {
-          tokens: 0
+          tokens: 0,
+          right: {
+            wall: false
+          },
+          bottom: {
+            wall: false
+          }
         };
       });
   });
-  tokens.forEach(token => {
-    const { x, y, count } = token;
-    data[y][x] = {
-      tokens: count
-    };
+  data.forEach(data => {
+    const { x, y, tokens, right, bottom } = data;
+    const ref = formattedData[y][x];
+    if (tokens) ref.tokens = tokens;
+    if (bottom) ref.bottom = bottom;
+    if (right) ref.right = right;
   });
+  // console.log(formattedData);
   return {
     rows,
     columns,
-    data,
+    data: formattedData,
     walls
   };
 }

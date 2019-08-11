@@ -1,8 +1,23 @@
-import { vectorToAngle, angleToVector } from "@trinketmage/sword";
+import { angleToVector } from "@trinketmage/sword";
 
-function checkBounds({ x, y }, { columns, rows }) {
+function checkBounds(robot, { x, y }, grid) {
+  const { columns, rows } = grid;
   if (x >= 0 && y >= 0 && x < columns && y < rows) {
-    return true;
+    if (
+      (grid.data[y][x].bottom.wall && robot.direction.y === -1) ||
+      (grid.data[robot.position.y][robot.position.x].bottom.wall &&
+        robot.direction.y === 1)
+    ) {
+      return false;
+    } else if (
+      (grid.data[y][x].right.wall && robot.direction.x === -1) ||
+      (grid.data[robot.position.y][robot.position.x].right.wall &&
+        robot.direction.x === 1)
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   } else {
     return false;
   }
@@ -15,7 +30,7 @@ export default {
       x: position.x + direction.x,
       y: position.y + direction.y
     };
-    if (checkBounds(destination, model.grid)) {
+    if (checkBounds(model.robot, destination, model.grid)) {
       model.robot.position = destination;
     }
   },

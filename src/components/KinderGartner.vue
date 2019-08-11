@@ -6,9 +6,10 @@
     <div class="container">
       <table class="table" cellspacing="0">
         <tr class="row" v-for="x in rows">
-          <td class="cell" v-for="y in columns">
-            <Cell :data="data[x-1][y-1]"/>
-          </td>
+          <Cell
+            :data="data[x-1][y-1]"
+            v-for="y in columns"
+          />
         </tr>
       </table>
       <!-- <Wall v-for="wall in walls" :data="wall"/> -->
@@ -62,14 +63,6 @@ export default {
 .table {
   border-collapse: collapse;
 	background-color: #ffffff;
-  .row {
-    .cell {
-      width: 48px;
-      height: 48px;
-      border: 4px solid #f6f9fc;
-      position: relative
-    }
-  }
 }
 .token-board {
   // font-size: 12px;

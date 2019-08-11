@@ -75,7 +75,10 @@ export default {
             })
             break;
           } else {
-            this.i18nInstructions[str](store)
+            this.i18nInstructions[str]({
+              robot: store.robot,
+              grid: store.grid
+            })
           }
         }
       }

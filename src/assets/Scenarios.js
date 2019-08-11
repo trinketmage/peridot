@@ -13,18 +13,33 @@ export default [
     },
     columns: 5,
     rows: 6,
-    tokens: [
+    data: [
+      {
+        x: 1,
+        y: 1,
+        right: {
+          wall: true
+        }
+      },
       {
         x: 3,
         y: 3,
-        count: 2
+        tokens: 2,
+        bottom: {
+          wall: true
+        }
       },
       {
         x: 1,
         y: 4,
-        count: 1
+        tokens: 1,
+        right: {
+          wall: true
+        },
+        bottom: {
+          wall: true
+        }
       }
-    ],
-    walls: [[[0, 1], [1, 1]], [[3, 3], [3, 4]]]
+    ]
   }
 ];
