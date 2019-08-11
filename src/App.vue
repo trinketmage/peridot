@@ -107,4 +107,7 @@ body {
         }
     }
 }
+.bold {
+  font-weight: bold
+}
 </style>

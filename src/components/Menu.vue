@@ -10,7 +10,7 @@
         class="underline"
         :to="{ name: 'mission', params: { locale: $route.params.locale, id: idx + 1 } }"
       >
-        {{ idx + 1 }}. {{ scenario.name }}
+        <span class="bold">{{ idx + 1 }}</span>. {{ scenario.name }}
       </router-link>
     </div>
   </div>
@@ -54,7 +54,11 @@ export default {
 h3 {
   color: #24b47e;
 }
-
+.repeater {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 a {
   font-size: 14px;
   color: #697386;
