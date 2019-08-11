@@ -65,6 +65,10 @@ body {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    .caption {
+      z-index: 1;
+      position: relative;
+    }
     &:before {
         content: '';
         display: block;
@@ -72,10 +76,10 @@ body {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 1px;
-        background-color: #697386;
+        height: 100%;
+        background-color: rgba(12, 242, 150, 0.5);
         transform: translateX(100%);
-        margin-right: 1px;
+        margin-right: -1px;
         opacity: 0;
         transition: opacity 0s .3s, transform .3s;
         will-change: opacity, transform;
@@ -88,8 +92,8 @@ body {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 1px;
-        background-color: #697386;
+        height: 100%;
+        background-color: rgba(12, 242, 150, 0.5);
         transform: translateX(-100%);
         transition:  opacity 0s .3s, transform .3s ease;
         will-change: opacity, transform;

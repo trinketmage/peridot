@@ -1,3 +1,4 @@
+import Scenario3 from "./scenario3";
 export default [
   {
     name: "Peridot kills everyone",
@@ -63,5 +64,6 @@ export default [
     columns: 10,
     rows: 10,
     data: []
-  }
+  },
+  Scenario3
 ];

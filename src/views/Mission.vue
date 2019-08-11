@@ -9,7 +9,7 @@
 
 <script>
 import store from '@/store/index'
-import scenarios from "@/assets/Scenarios";
+import scenarios from "@/assets/Scenarios/index";
 
 import Editor from "@/components/Editor.vue"
 import KinderGartner from "@/components/KinderGartner.vue"

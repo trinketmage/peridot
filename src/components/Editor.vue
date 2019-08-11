@@ -34,7 +34,7 @@ import "codemirror/addon/display/placeholder";
 import "./peridot.css";
 import "./peridot.js";
 
-import scenarios from "@/assets/Scenarios";
+import scenarios from "@/assets/Scenarios/index";
 import Instructions from "@/pure/Instructions";
 import store from "@/store/index";
 import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";

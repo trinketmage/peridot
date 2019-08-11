@@ -11,7 +11,7 @@
           class="underline"
           :to="{ name: 'mission', params: { locale: $route.params.locale, id: idx + 1 } }"
         >
-          <span class="bold">{{ idx + 1 }}</span>. {{ scenario.name }}
+          <span class="caption"><span class="bold">{{ idx + 1 }}</span>. {{ scenario.name }}</span>
         </router-link>
       </div>
   </div>
