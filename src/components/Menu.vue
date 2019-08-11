@@ -15,7 +15,14 @@
         </router-link>
       </div>
   </div>
-    <div class="tongue" />
+    <div class="tongue">
+      <span class="icon">
+        <svg width="16px" height="20px" viewBox="0 0 129 129" >
+            <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>
+        </svg>
+
+      </span>
+    </div>
   </div>
 </template>
 
@@ -48,19 +55,58 @@ export default {
   will-change: transform;
   &:hover {
     transform: translateX(0%);
+    .tongue {
+      transition: transform 1s ease;
+      transform: translateX(-100%);
+      will-change: transform;
+    }
+  }
+}
+.tongue {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  height: 50px;
+  left: 100%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 1);
+  transition: transform 1s ease;
+  will-change: transform;
+  transform: translateX(0%);
+
+  .icon {
+    color: #000000;
+    display: flex;
+    width: 50%;
+    margin-left: auto;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    path {
+      fill: #6772e4;
+    }
+  }
+}
+.home ~ .menu {
+  transform: translateX(-100%);
+  .tongue {
+    transition: transform 1s ease;
+    transform: translateX(-100%);
+    will-change: transform;
   }
 }
 .sizer {
   width: 100%;
   height: 100%;
   padding: 48px;
-  background-color: rgba(255, 255, 255, .875);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
   overflow: auto;
-
-}
-.home ~ .menu {
-  transform: translateX(0%);
+  position: relative;
+  z-index: 1;
 }
 h3 {
   color: #24b47e;
@@ -77,13 +123,5 @@ a {
   margin: 4px 0;
   text-decoration: none;
   display: inline-block;
-}
-.tongue {
-  position: fixed;
-  width: 25px;
-  height: 100%;
-  left: 100%;
-  top: 0;
-  background-color: rgba(0,0,0,0);
 }
 </style>
