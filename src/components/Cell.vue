@@ -10,13 +10,21 @@
     ]"
   >
   <!-- {{data}} -->
-    <div class="cell-sizer" v-if="data && data.tokens > 0">
-      {{data.tokens}}
+    <div class="cell-sizer">
+      <transition name="number-fold">
+        <span
+          class="count-holder"
+          :key="data.tokens"
+          v-if="data.tokens > 0"
+        >{{data.tokens}}</span>
+      </transition>
       <div
         class="token-holder"
       >
         <span
-          class="token" v-for="token in data.tokens"
+          :key="i"
+          class="token"
+          v-for="(token, i) in data.tokens"
           :style="{
             transform
           }"
@@ -86,5 +94,12 @@ export default {
   &+.token {
     margin-left: -11px;
   }
+}
+.count-holder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px;
+  will-change: transform, opacity;
 }
 </style>

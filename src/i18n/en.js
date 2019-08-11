@@ -10,7 +10,7 @@ export default {
     pickToken: "pick_token",
     end: "end"
   },
-  conditions:{
+  conditions: {
     wallFace: "facing_wall",
     wallLeft: "wall_on_left",
     wallRight: "wall_on_right",
@@ -21,7 +21,7 @@ export default {
     faceEast: "face_east",
     faceWest: "face_west"
   },
-  structures:{
+  structures: {
     define: "define",
     repeat: "repeat",
     times: "times",
@@ -30,7 +30,7 @@ export default {
     else: "else",
     while: "while"
   },
-  operators:{
+  operators: {
     and: "and",
     or: "or"
   }

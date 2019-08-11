@@ -1,7 +1,7 @@
 <template>
   <div class="editor-container">
     <codemirror
-      ref="myCm"
+      ref="editor"
       :value="content"
       :options="cmOptions"
       @ready="onCmReady"
@@ -9,109 +9,154 @@
       @input="onCmCodeChange"
     />
     <div class="editor-footer">
-      <a>{{ $t('help') }}</a>
-      <button @click="submit"><svg data-v-2a9d965d="" height="20px" width="20px" viewBox="0 0 200 200"><polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon></svg> {{ $t('run') }}</button>
+      <a>{{ $t("help") }}</a>
+      <button @click="submit">
+        <svg
+          data-v-2a9d965d=""
+          height="20px"
+          width="20px"
+          viewBox="0 0 200 200"
+        >
+          <polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon>
+        </svg>
+        {{ $t("run") }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { codemirror } from "vue-codemirror";
+import "codemirror";
+import "codemirror/lib/codemirror.css";
+import "codemirror/addon/display/placeholder";
 
-import { codemirror } from 'vue-codemirror'
-import  cm  from 'codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/display/placeholder'
-
-import './peridot.css'
-import './peridot.js'
+import "./peridot.css";
+import "./peridot.js";
 
 import scenarios from "@/assets/Scenarios";
-import Instructions from '@/pure/Instructions'
-import store from '@/store/index'
-import { formatScenerioGrid,formatScenerioRobot } from "@/pure/ScenarioUtils";
+import Instructions from "@/pure/Instructions";
+import store from "@/store/index";
+import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";
+import { TimelineMax } from "gsap";
 
 export default {
   components: {
     codemirror
   },
-  data () {
+  data() {
     return {
-      content: '',
+      content: "",
       errorBag: [],
       cmOptions: {
         tabSize: 4,
-        mode: 'peridot',
-        theme: 'peridot',
+        mode: "peridot",
+        theme: "peridot",
         lineNumbers: true,
-        placeholder: this.$t('placeholder')
-      }
-    }
+        placeholder: this.$t("placeholder")
+      },
+      instructions: []
+    };
   },
-  // created() {
-  //   this.changeContent()
-  // },
   computed: {
     robot() {
-      return store.robot
+      return store.robot;
     },
     i18nInstructions() {
-      const i18nInstructions = {}
-      for(const key in Instructions) {
-        if(this.$te(`instructions.${key}`)) {
-          i18nInstructions[this.$t(`instructions.${key}`)] = Instructions[key]
+      const i18nInstructions = {};
+      for (const key in Instructions) {
+        if (this.$te(`instructions.${key}`)) {
+          i18nInstructions[this.$t(`instructions.${key}`)] = Instructions[key];
         }
       }
-      return i18nInstructions
+      return i18nInstructions;
     }
   },
-  methods:{
-    onCmReady(cm) {
+  methods: {
+    onCmReady() {
       // console.log('the editor is readied!', cm)
     },
-    onCmFocus(cm) {
+    onCmFocus() {
       // console.log('the editor is focus!', cm)
     },
     onCmCodeChange(newCode) {
       // console.log('this is new code', newCode)
-      this.changeContent(newCode)
+      this.changeContent(newCode);
     },
-    changeContent (value) {
-      store.robot = formatScenerioRobot(scenarios[store.scenarioIdx].robot)
-      store.grid = formatScenerioGrid(scenarios[store.scenarioIdx])
-      this.content = value
-      this.checkInstructions()
-    },
-    submit(value, e) {
-      console.log("submit")
-      // this.changeContent(this.content)
+    changeContent(value) {
+      this.content = value;
+      // if (this.tl) this.tl.kill();
+      // this.instructions = [];
+      // store.robot = formatScenerioRobot(scenarios[store.scenarioIdx].robot);
+      // store.grid = formatScenerioGrid(scenarios[store.scenarioIdx]);
       // this.checkInstructions()
     },
-    checkInstructions () {
-      const inputs = this.content.split('\n')
-      const errors = []
+    submit() {
+      if (this.tl) this.tl.kill();
+      this.instructions = [];
+      store.robot = formatScenerioRobot(scenarios[store.scenarioIdx].robot);
+      store.grid = formatScenerioGrid(scenarios[store.scenarioIdx]);
+      this.changeContent(this.content);
+      this.checkInstructions();
+      this.playInstructions();
+    },
+    checkInstructions() {
+      // var element = document.createElement('div');
+      // element.classList.add('error-line-widget')
+      // element.innerHTML = `<div class="caption">Unexpected token, expected , (8:2)</div>`
+
+      // this.$refs.editor.codemirror.addLineWidget( 2, element)
+      const inputs = this.content.split("\n");
+      const errors = [];
       for (let i = 0; i < inputs.length; i++) {
-        const str = inputs[i].replace(/\s/g, '')
+        const str = inputs[i].replace(/\s/g, "");
         if (str) {
           if (Object.keys(this.i18nInstructions).indexOf(str) === -1) {
-            errors.push({
-                row: i,
-                column: 0,
-                text: `L'instruction ligne ${i + 1} est erronée`,
-                type: "error"
-            })
+            const error = {
+              row: i,
+              column: 0,
+              text: `L'instruction ligne ${i + 1} est erronée`,
+              type: "error"
+            };
+            errors.push(error);
+            this.instructions.push(error);
             break;
           } else {
-            this.i18nInstructions[str]({
-              robot: store.robot,
-              grid: store.grid
-            })
+            // this.i18nInstructions[str]({
+            //   robot: store.robot,
+            //   grid: store.grid
+            // })
+            this.instructions.push({
+              type: "instruction",
+              key: str
+            });
           }
         }
       }
-      this.errorBag = errors
+      this.errorBag = errors;
+    },
+    playInstructions() {
+      if (this.tl) this.tl.kill();
+      this.tl = new TimelineMax();
+      const helper = {
+        progress: 0
+      };
+      this.instructions.forEach((_, i) => {
+        if (_.type === "instruction") {
+          this.tl.to(helper, 0.625, {
+            progress: i + 1,
+            onComplete: () => {
+              this.i18nInstructions[_.key]({
+                robot: store.robot,
+                grid: store.grid
+              });
+            }
+          });
+        }
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped lang="sass">
@@ -134,6 +179,13 @@ export default {
       padding-right: 12px
     .CodeMirror-placeholder
       opacity: .3
+    .error-line-widget
+        background-color: #fdeeee
+        color: #eb5656
+        .caption
+          padding-left: 6px
+          padding-top: 6px
+          padding-bottom: 6px
 .editor-footer
   color: #6772e4
   background-color: #f6f9fc
@@ -160,5 +212,4 @@ export default {
     cursor: pointer
     polygon
       fill: #ffffff
-
 </style>

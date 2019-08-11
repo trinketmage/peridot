@@ -21,11 +21,6 @@ export default {
     Editor,
     KinderGartner
   },
-  created() {
-    console.log('created');
-    // store.scenarioIdx = parseInt(this.$route.params.slug) - 1
-    console.log(store.scenarioIdx)
-  },
   data() {
     const idx = parseInt(this.$route.params.slug) - 1
     store.scenarioIdx = idx

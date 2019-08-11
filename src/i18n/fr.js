@@ -10,7 +10,7 @@ export default {
     pickToken: "prend_un_jeton",
     end: "fin"
   },
-  conditions:{
+  conditions: {
     wallFace: "mur_en_face",
     wallLeft: "mur_a_gauche",
     wallRight: "mur_a_droite",
@@ -21,7 +21,7 @@ export default {
     faceEast: "regarde_est",
     faceWest: "regarde_ouest"
   },
-  structures:{
+  structures: {
     define: "définir",
     repeat: "répéter",
     times: "fois",
@@ -30,7 +30,7 @@ export default {
     else: "sinon",
     while: "tant_que"
   },
-  operators:{
+  operators: {
     and: "et",
     or: "ou"
   }

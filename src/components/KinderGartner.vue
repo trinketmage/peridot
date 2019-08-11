@@ -1,53 +1,53 @@
 <template>
   <div class="kinder-gartner">
     <div class="token-board" v-if="compartment.capacity > 0">
-			{{compartment.hold}} / {{compartment.capacity}}<span class="label">{{ $t('tokens') }}</span>
-		</div>
+      <span class="helper">
+        <transition name="number-fold">
+          <span :key="compartment.hold" class="count-helper">{{ compartment.hold }}</span>
+        </transition>
+      </span> / {{ compartment.capacity
+      }}<span class="label">{{ $t("tokens") }}</span>
+    </div>
     <div class="container">
       <table class="table" cellspacing="0">
-        <tr class="row" v-for="x in rows">
-          <Cell
-            :data="data[x-1][y-1]"
-            v-for="y in columns"
-          />
+        <tr class="row" :key="xi" v-for="(x, xi) in rows">
+          <Cell :key="i" :data="data[x - 1][y - 1]" v-for="(y, i) in columns" />
         </tr>
       </table>
-      <!-- <Wall v-for="wall in walls" :data="wall"/> -->
-      <Peridot/>
+
+      <Peridot />
     </div>
   </div>
 </template>
 
 <script>
-import Peridot from "@/components/Peridot.vue"
-import Cell from "@/components/Cell.vue"
-import Wall from "@/components/Wall.vue"
-import store from '@/store/index'
+import Peridot from "@/components/Peridot.vue";
+import Cell from "@/components/Cell.vue";
+import store from "@/store/index";
 
 export default {
   components: {
     Peridot,
-    Cell,
-    Wall
+    Cell
   },
   computed: {
     rows() {
-      return store.grid.rows
+      return store.grid.rows;
     },
     columns() {
-      return store.grid.columns
+      return store.grid.columns;
     },
     data() {
-      return store.grid.data
+      return store.grid.data;
     },
     walls() {
-      return store.grid.walls
+      return store.grid.walls;
     },
     compartment() {
-      return store.robot.compartment
+      return store.robot.compartment;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -62,7 +62,7 @@ export default {
 }
 .table {
   border-collapse: collapse;
-	background-color: #ffffff;
+  background-color: #ffffff;
 }
 .token-board {
   // font-size: 12px;
@@ -72,12 +72,23 @@ export default {
   top: 28px;
   font-size: 38px;
   text-align: center;
-  .label{
+  .label {
     display: block;
     font-size: 19px;
     color: #8898aa;
     margin-top: 7px;
-		text-transform: uppercase;
+    text-transform: uppercase;
   }
+}
+.helper {
+  position: absolute;
+  display: inline-block;
+  right: 100%;
+}
+.count-helper {
+  display: block;
+  position: absolute;
+  right: 100%;
+  will-change: transform, opacity;
 }
 </style>

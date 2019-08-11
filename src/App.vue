@@ -35,4 +35,17 @@ body {
   height: 100%;
   background: #f6f9fc;
 }
+
+.number-fold-enter-active,
+.number-fold-leave-active {
+  transition: opacity .3s, transform .3s
+}
+.number-fold-enter {
+  opacity: 0;
+  transform: translateY(-50%);
+}
+.number-fold-leave-to {
+  opacity: 0;
+  transform: translateY(50%);
+}
 </style>
