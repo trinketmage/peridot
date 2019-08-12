@@ -91,7 +91,7 @@ export default {
   }
 }
 .home ~ .menu {
-  transform: translateX(-100%);
+  transform: translateX(0%);
   .tongue {
     transition: transform 1s ease;
     transform: translateX(-100%);
