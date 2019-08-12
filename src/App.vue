@@ -110,6 +110,15 @@ body {
             transform: translateX(0%);
         }
     }
+    // &.active,
+    // &.router-link-active {
+    //     &:before {
+    //       background-color: rgba(127, 189, 255, .25);
+    //     }
+    //     &:after {
+    //       background-color: rgba(127, 189, 255, .25);
+    //     }
+    // }
 }
 .bold {
   font-weight: bold

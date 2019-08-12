@@ -49,8 +49,8 @@ export default {
   width: 35vw;
   z-index: 1;
   min-width: 252px;
-  max-width: 400px;
-  transition: transform 1s ease;
+  max-width: 360px;
+  transition: transform .625s ease;
   transform: translateX(-100%);
   will-change: transform;
   &:hover {
@@ -73,7 +73,7 @@ export default {
   margin-top: -25px;
   border-radius: 25px;
   background-color: rgba(255, 255, 255, 1);
-  transition: transform 1s ease;
+  transition: transform .625s ease;
   will-change: transform;
   transform: translateX(0%);
 
