@@ -6,10 +6,10 @@ export default {
       hold:0
     },
     position: {
-      x: 1,
-      y: 3
+      x: 5,
+      y: 2
     },
-    angle: 0
+    angle: -180
   },
   columns: 7,
   rows: 7,
