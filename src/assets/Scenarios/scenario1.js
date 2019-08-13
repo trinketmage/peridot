@@ -1,18 +1,17 @@
 export default {
-  name: "Petit Poucet", //Little Poucet
+  name: "Au bout du tunnel", //At the end of the tunnel
   robot: {
     compartment: {
-      capacity: 4,
-      hold:4
+      capacity: 0
     },
     position: {
       x: 0,
-      y: 1
+      y: 0
     },
     angle: 0
   },
   columns: 4,
-  rows: 2,
+  rows: 1,
   data: [
     {
       x: 3,
@@ -22,4 +21,4 @@ export default {
   ]
 };
 
-//Win : arrivé sur la case de fin ET un jeton exactement sur chaque case de la ligne y=1
+//Win : arrivé sur la case de fin

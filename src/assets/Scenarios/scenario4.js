@@ -1,9 +1,9 @@
 export default {
-  name: "Petit Poucet", //Little Poucet
+  name: "Grand Poucet", //Big Poucet
   robot: {
     compartment: {
-      capacity: 4,
-      hold:4
+      capacity: 2,
+      hold:2
     },
     position: {
       x: 0,
@@ -18,6 +18,11 @@ export default {
       x: 3,
       y: 0,
       arrival: true
+    },
+    {
+      tokens:2,
+      x:2,
+      y:1
     }
   ]
 };

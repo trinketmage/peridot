@@ -1,9 +1,8 @@
 export default {
-  name: "Petit Poucet", //Little Poucet
+  name: "Deux dimensions", //Two dimensions
   robot: {
     compartment: {
-      capacity: 4,
-      hold:4
+      capacity: 0
     },
     position: {
       x: 0,
@@ -22,4 +21,4 @@ export default {
   ]
 };
 
-//Win : arrivé sur la case de fin ET un jeton exactement sur chaque case de la ligne y=1
+//Win : arrivé sur la case de fin

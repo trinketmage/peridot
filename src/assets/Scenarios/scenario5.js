@@ -1,13 +1,12 @@
 export default {
-  name: "Petit Poucet", //Little Poucet
+  name: "L'autre gauche", //She left
   robot: {
     compartment: {
-      capacity: 4,
-      hold:4
+      capacity: 0
     },
     position: {
       x: 0,
-      y: 1
+      y: 0
     },
     angle: 0
   },
@@ -16,10 +15,10 @@ export default {
   data: [
     {
       x: 3,
-      y: 0,
+      y: 1,
       arrival: true
     }
   ]
 };
 
-//Win : arrivé sur la case de fin ET un jeton exactement sur chaque case de la ligne y=1
+//Win : arrivé sur la case de fin
