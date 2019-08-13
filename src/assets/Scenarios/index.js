@@ -6,6 +6,8 @@ import Scenario5 from "./scenario5";
 import Scenario6 from "./scenario6";
 import Scenario7 from "./scenario7";
 import Scenario8 from "./scenario8";
+import Scenario9 from "./scenario9";
+import Scenario10 from "./scenario10";
 export default [
   Scenario1,
   Scenario2,
@@ -15,6 +17,8 @@ export default [
   Scenario6,
   Scenario7,
   Scenario8,
+  Scenario9,
+  Scenario10,
   {
     name: "Peridot kills everyone",
     robot: {

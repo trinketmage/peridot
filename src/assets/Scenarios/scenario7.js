@@ -1,5 +1,5 @@
 export default {
-  name: "Au pied du mur 2", //Do not hit a wall 2
+  name: "Au pied du mur", //Do not hit a wall
   robot: {
     compartment: {
       capacity: 0
@@ -28,4 +28,4 @@ export default {
   ]
 };
 
-//Win : arrivé sur la case de fin + avoir utilisé "define droite:"
+//Win : arrivé sur la case de fin

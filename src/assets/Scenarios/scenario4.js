@@ -1,9 +1,9 @@
 export default {
-  name: "Grand Poucet", //Big Poucet
+  name: "Robot aspirateur", //Vacuum cleaner robot
   robot: {
     compartment: {
-      capacity: 2,
-      hold:2
+      capacity: 5,
+      hold:0
     },
     position: {
       x: 0,
@@ -20,11 +20,28 @@ export default {
       arrival: true
     },
     {
-      tokens:2,
-      x:2,
-      y:1
-    }
+      x: 0,
+      y: 1,
+      tokens: 1
+    },
+    {
+      x: 1,
+      y: 1,
+      tokens: 1
+    },
+    {
+      x: 2,
+      y: 1,
+      tokens: 2
+    },
+    {
+      x: 3,
+      y: 1,
+      tokens: 1
+    },
+
   ]
 };
 
-//Win : arrivé sur la case de fin ET un jeton exactement sur chaque case de la ligne y=1
+//Win : arrivé sur la case de fin
+//      ET plus aucun jeton sur la map (cad 5 en poche)

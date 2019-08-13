@@ -1,29 +1,22 @@
 export default {
-  name: "Au pied du mur", //Do not hit a wall
+  name: "L'autre gauche", //She left
   robot: {
     compartment: {
       capacity: 0
     },
     position: {
       x: 0,
-      y: 1
+      y: 0
     },
     angle: 0
   },
   columns: 4,
-  rows: 3,
+  rows: 2,
   data: [
     {
       x: 3,
       y: 1,
       arrival: true
-    },
-    {
-      x:1,
-      y:1,
-      right: {
-        wall: true
-      }
     }
   ]
 };
