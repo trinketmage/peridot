@@ -1,9 +1,7 @@
 <template>
   <div
     class="peridot"
-    :style="{
-      transform
-    }">
+  >
     <svg height="100%" width="100%" viewBox="0 0 200 200">
       <polygon points="50,50 50,150 150,100"/>
     </svg>
@@ -35,15 +33,8 @@ export default {
       }
     }
   },
-  computed: {
-    angle() {
-      return store.robot.angle
-    },
-    transform() {
-      const {position} = store.robot
-      const {angle} = this
-      return `translateX(${position.x * 100}%) translateY(${position.y * 100}%) rotate(${angle}deg)`
-    }
+  mounted() {
+    store.peridot = this.$el
   }
 }
 </script>
@@ -57,8 +48,6 @@ export default {
   display: block;
   left: 2px;
   top: 2px;
-  transition: transform .3s ease;
-  will-change: transform;
   polygon {
     fill: #24b47e;
     stroke: rgb(185, 244, 188);

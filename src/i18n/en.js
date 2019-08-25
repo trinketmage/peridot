@@ -35,8 +35,8 @@ export default {
     or: "or"
   },
   errors: {
-    HitBoundsError: "Peridot had hit the bounds",
-    HitWallError: "Peridot had hit a wall",
+    HitBoundsError: "Peridot has hit the bounds",
+    HitWallError: "Peridot has hit a wall",
     MaxToken: "Peridot can't pick more token",
     NoTokenToDrop: "Peridot can't drop any token"
   }

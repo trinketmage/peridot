@@ -8,6 +8,7 @@
         v-for="(scenario, idx) in scenarios"
       >
         <router-link
+          v-if="$route.params.locale"
           class="underline"
           :to="{ name: 'mission', params: { locale: $route.params.locale, id: idx + 1 } }"
         >

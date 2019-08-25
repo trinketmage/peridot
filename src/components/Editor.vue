@@ -38,7 +38,7 @@ import scenarios from "@/assets/Scenarios/index";
 import Instructions from "@/pure/Instructions";
 import store from "@/store/index";
 import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";
-import { TimelineMax } from "gsap";
+import { TimelineMax, TweenMax } from "gsap";
 
 export default {
   components: {
@@ -74,6 +74,9 @@ export default {
   },
   created() {
     this.errorWidgets = []
+  },
+  mounted() {
+    this.resetPeridot()
   },
   methods: {
     onCmReady() {
@@ -140,7 +143,16 @@ export default {
       element.innerHTML = `<div class="caption">${e}</div>`
       this.errorWidgets.push(this.$refs.editor.codemirror.addLineWidget( line, element))
     },
+    resetPeridot() {
+      const {angle, position} = store.robot
+      TweenMax.set(store.peridot, {x: `0%`, y: `0%`, rotation: angle})
+    },
+    updatePeridot() {
+      const {angle, position} = store.robot
+      TweenMax.to(store.peridot, store.stepTime * 0.5, {x: `${position.x * 100}%`, y: `${position.y * 100}%`, rotation: angle})
+    },
     playInstructions() {
+      this.resetPeridot()
       this.errorWidgets.forEach(_ => {
         this.$refs.editor.codemirror.removeLineWidget(_)
         _ = null
@@ -153,7 +165,7 @@ export default {
       };
       this.instructions.forEach((_, i) => {
         if (_.type === "instruction") {
-          this.tl.to(helper, 0.625, {
+          this.tl.to(helper, store.stepTime, {
             progress: i + 1,
             onComplete: () => {
               try {
@@ -161,6 +173,7 @@ export default {
                   robot: store.robot,
                   grid: store.grid
                 });
+                this.updatePeridot()
               }
               catch(e) {
                 this.displayError(this.$t(`errors.${e.message}`), _.line)

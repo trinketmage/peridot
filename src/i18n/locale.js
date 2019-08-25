@@ -11,5 +11,4 @@ const lang = regexp.exec(window.location.pathname);
 if (lang && lang[1]) {
   locale = lang[1];
 }
-console.log(locale);
 export default locale;
