@@ -76,7 +76,6 @@ export default {
   border: 4px solid #f6f9fc;
   position: relative;
 }
-.cover
 .bottom-wall {
   &:after {
     content: "";
