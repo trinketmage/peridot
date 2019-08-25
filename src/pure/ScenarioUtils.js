@@ -28,7 +28,6 @@ export function formatScenerioGrid(scenario) {
     if (right) ref.right = right;
     if (arrival) ref.arrival = arrival;
   });
-  // console.log(formattedData);
   return {
     rows,
     columns,

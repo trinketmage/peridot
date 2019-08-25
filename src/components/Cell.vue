@@ -38,7 +38,7 @@ export default {
       return this.data[this.x][this.y]
     },
     tokens() {
-      return Math.min(this.cell.tokens, 4)
+      return Math.min(this.cell.tokens, 3)
     },
     transform() {
       return `translateX(${-2 * (this.tokens - 1)}px)`;

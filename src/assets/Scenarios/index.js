@@ -8,6 +8,7 @@ import Scenario7 from "./scenario7";
 import Scenario8 from "./scenario8";
 import Scenario9 from "./scenario9";
 import Scenario10 from "./scenario10";
+import ScenarioTest from "./scenarioTest";
 export default [
   Scenario1,
   Scenario2,
@@ -19,60 +20,5 @@ export default [
   Scenario8,
   Scenario9,
   Scenario10,
-  {
-    name: "Peridot kills everyone",
-    robot: {
-      compartment: {
-        capacity: 10,
-        hold: 3
-      },
-      position: {
-        x: 0,
-        y: 0
-      },
-      angle: 90
-    },
-    columns: 5,
-    rows: 6,
-    data: [
-      {
-        x: 1,
-        y: 1,
-        right: {
-          wall: true
-        }
-      },
-      {
-        x: 0,
-        y: 1,
-        bottom: {
-          wall: true
-        }
-      },
-      {
-        x: 3,
-        y: 3,
-        tokens: 2,
-        bottom: {
-          wall: true
-        }
-      },
-      {
-        x: 1,
-        y: 4,
-        tokens: 1,
-        right: {
-          wall: true
-        },
-        bottom: {
-          wall: true
-        }
-      },
-      {
-        x: 4,
-        y: 5,
-        arrival: true
-      }
-    ]
-  }
+  ScenarioTest
 ];

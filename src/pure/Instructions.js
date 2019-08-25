@@ -8,18 +8,18 @@ function checkBounds(robot, { x, y }, grid) {
       (grid.data[robot.position.y][robot.position.x].bottom.wall &&
         robot.direction.y === 1)
     ) {
-      return false;
+      throw new Error("HitWallError");
     } else if (
       (grid.data[y][x].right.wall && robot.direction.x === -1) ||
       (grid.data[robot.position.y][robot.position.x].right.wall &&
         robot.direction.x === 1)
     ) {
-      return false;
+      throw new Error("HitWallError");
     } else {
       return true;
     }
   } else {
-    return false;
+    throw new Error("HitBoundsError");
   }
 }
 
@@ -43,6 +43,8 @@ export default {
       const { x, y } = model.robot.position;
       model.grid.data[y][x].tokens++;
       model.robot.compartment.hold--;
+    } else {
+      throw new Error("NoTokenToDrop");
     }
   },
   pickToken(model) {
@@ -51,6 +53,8 @@ export default {
     if (model.grid.data[y][x].tokens > 0 && hold < capacity) {
       model.grid.data[y][x].tokens--;
       model.robot.compartment.hold++;
+    } else {
+      throw new Error("MaxToken");
     }
   },
   end() {}

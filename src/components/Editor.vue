@@ -72,6 +72,9 @@ export default {
       return i18nInstructions;
     }
   },
+  created() {
+    this.errorWidgets = []
+  },
   methods: {
     onCmReady() {
       // console.log('the editor is readied!', cm)
@@ -101,11 +104,6 @@ export default {
       this.playInstructions();
     },
     checkInstructions() {
-      // var element = document.createElement('div');
-      // element.classList.add('error-line-widget')
-      // element.innerHTML = `<div class="caption">Unexpected token, expected , (8:2)</div>`
-
-      // this.$refs.editor.codemirror.addLineWidget( 2, element)
       const inputs = this.content.split("\n");
       const errors = [];
       for (let i = 0; i < inputs.length; i++) {
@@ -128,14 +126,26 @@ export default {
             // })
             this.instructions.push({
               type: "instruction",
-              key: str
+              key: str,
+              line: i
             });
           }
         }
       }
       this.errorBag = errors;
     },
+    displayError(e, line) {
+      var element = document.createElement('div');
+      element.classList.add('error-line-widget')
+      element.innerHTML = `<div class="caption">${e}</div>`
+      this.errorWidgets.push(this.$refs.editor.codemirror.addLineWidget( line, element))
+    },
     playInstructions() {
+      this.errorWidgets.forEach(_ => {
+        this.$refs.editor.codemirror.removeLineWidget(_)
+        _ = null
+      })
+      this.errorWidgets = []
       if (this.tl) this.tl.kill();
       this.tl = new TimelineMax();
       const helper = {
@@ -146,10 +156,16 @@ export default {
           this.tl.to(helper, 0.625, {
             progress: i + 1,
             onComplete: () => {
-              this.i18nInstructions[_.key]({
-                robot: store.robot,
-                grid: store.grid
-              });
+              try {
+                this.i18nInstructions[_.key]({
+                  robot: store.robot,
+                  grid: store.grid
+                });
+              }
+              catch(e) {
+                this.displayError(this.$t(`errors.${e.message}`), _.line)
+                this.tl.kill()
+              }
             }
           });
         }

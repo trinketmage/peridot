@@ -33,5 +33,10 @@ export default {
   operators: {
     and: "et",
     or: "ou"
+  },
+  errors: {
+    HitBoundsError: "Peridot had hit the bounds",
+    HitWallError: "Peridot had hit a wall",
+    MaxToken: "Peridot can't pick more token"
   }
 };
