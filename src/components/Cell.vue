@@ -20,7 +20,7 @@
         <span
           :key="i"
           class="token"
-          v-for="(token, i) in cell.tokens"
+          v-for="(token, i) in tokens"
           :style="{
             transform
           }"
@@ -37,8 +37,11 @@ export default {
     cell() {
       return this.data[this.x][this.y]
     },
+    tokens() {
+      return Math.min(this.cell.tokens, 4)
+    },
     transform() {
-      return `translateX(${-2 * (this.data.tokens - 1)}px)`;
+      return `translateX(${-2 * (this.tokens - 1)}px)`;
     },
     padding() {
       const { cell, data, x, y } = this
