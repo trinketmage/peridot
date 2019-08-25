@@ -10,18 +10,21 @@
     />
     <div class="editor-footer">
       <a>{{ $t("help") }}</a>
-      <button @click="submit">
-        <svg
-          data-v-2a9d965d=""
-          height="20px"
-          width="20px"
-          viewBox="0 0 200 200"
-        >
-          <polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon>
-        </svg>
-        {{ $t("run") }}
-      </button>
-    </div>
+      <div class="sizer">
+        <span class="speed-control" @click="nextSpeed">{{speed}} x</span>
+        <button @click="submit">
+          <svg
+            data-v-2a9d965d=""
+            height="20px"
+            width="20px"
+            viewBox="0 0 200 200"
+          >
+            <polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon>
+          </svg>
+          {{ $t("run") }}
+        </button>
+      </div>
+      </div>
   </div>
 </template>
 
@@ -39,6 +42,12 @@ import Instructions from "@/pure/Instructions";
 import store from "@/store/index";
 import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";
 import { TimelineMax, TweenMax } from "gsap";
+const speeds = [
+  1,
+  1.5,
+  2,
+  .5
+]
 
 export default {
   components: {
@@ -48,6 +57,7 @@ export default {
     return {
       content: "",
       errorBag: [],
+      currentSpeedIdx: 0,
       cmOptions: {
         tabSize: 4,
         mode: "peridot",
@@ -59,6 +69,9 @@ export default {
     };
   },
   computed: {
+    speed() {
+      return speeds[this.currentSpeedIdx]
+    },
     robot() {
       return store.robot;
     },
@@ -79,6 +92,13 @@ export default {
     this.resetPeridot()
   },
   methods: {
+    nextSpeed() {
+      if(this.currentSpeedIdx < speeds.length - 1) {
+        this.currentSpeedIdx ++
+      } else {
+        this.currentSpeedIdx = 0
+      }
+    },
     onCmReady() {
       // console.log('the editor is readied!', cm)
     },
@@ -145,11 +165,11 @@ export default {
     },
     resetPeridot() {
       const {angle, position} = store.robot
-      TweenMax.set(store.peridot, {x: `0%`, y: `0%`, rotation: angle})
+      TweenMax.set(store.peridot, {x: `${position.x * 100}%`, y: `${position.y * 100}%`, rotation: angle})
     },
     updatePeridot() {
       const {angle, position} = store.robot
-      TweenMax.to(store.peridot, store.stepTime * 0.5, {x: `${position.x * 100}%`, y: `${position.y * 100}%`, rotation: angle})
+      TweenMax.to(store.peridot, store.stepTime / this.speed * 0.5, {x: `${position.x * 100}%`, y: `${position.y * 100}%`, rotation: angle})
     },
     playInstructions() {
       this.resetPeridot()
@@ -165,7 +185,7 @@ export default {
       };
       this.instructions.forEach((_, i) => {
         if (_.type === "instruction") {
-          this.tl.to(helper, store.stepTime, {
+          this.tl.to(helper, store.stepTime / this.speed, {
             progress: i + 1,
             onComplete: () => {
               try {
@@ -222,6 +242,22 @@ export default {
   font-size: 13px
   padding-left: 10px
   border-radius: 0 4px 0 4px
+  display: flex
+  justify-content: space-between
+  .speed-control
+    margin-right: 10px
+    background-color: rgba(255, 255, 255, 1)
+    border-radius: 4px
+    display: inline-block
+    line-height: 1em
+    padding: 4px 8px
+    cursor: pointer
+    user-select: none
+    &:hover
+      color: rgba(255, 255, 255, 1)
+      background-color: #6772e4
+
+
   button
     height: 30px
     background: #12b47d
