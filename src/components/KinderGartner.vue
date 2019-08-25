@@ -1,14 +1,15 @@
 <template>
   <div class="kinder-gartner">
     <div class="token-board" v-if="compartment.capacity > 0">
-      <span class="helper">
-        <transition name="number-fold">
-          <span :key="compartment.hold" class="count-helper">{{
-            compartment.hold
-          }}</span>
-        </transition>
-      </span>
-      / {{ compartment.capacity }}<span class="label">{{ $t("tokens") }}</span>
+      <span class="full-count">
+        <span class="helper">
+          <transition name="number-fold">
+            <span :key="compartment.hold" class="count-helper">{{
+              compartment.hold
+            }}</span>
+          </transition>
+        </span>/{{ compartment.capacity }}
+      </span><span class="label">{{ $t("tokens") }}</span>
     </div>
     <div class="container">
       <table class="table" cellspacing="0">
@@ -28,6 +29,10 @@
 
       <Peridot />
     </div>
+    <div
+      class="log"
+      v-if="grid.y > -1 && grid.y > -1"
+    >{{grid.y}}, {{grid.x}}</div>
   </div>
 </template>
 
@@ -83,6 +88,10 @@ export default {
   border-collapse: collapse;
   background-color: #ffffff;
 }
+.full-count {
+  display: inline-block;
+  position: relative;
+}
 .token-board {
   // font-size: 12px;
   color: #32325d;
@@ -90,12 +99,11 @@ export default {
   right: 28px;
   top: 28px;
   font-size: 38px;
-  text-align: center;
+  text-align: right;
   .label {
     display: block;
-    font-size: 19px;
+    font-size: 12px;
     color: #8898aa;
-    margin-top: 7px;
     text-transform: uppercase;
   }
 }
@@ -109,5 +117,14 @@ export default {
   position: absolute;
   right: 100%;
   will-change: transform, opacity;
+}
+.log {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 48px;
+  margin-left: 48px;
+  color: #8898aa;
+  transition: opacity .3s;
 }
 </style>

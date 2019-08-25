@@ -2,8 +2,8 @@ export default {
   name: "Peridot kills everyone",
   robot: {
     compartment: {
-      capacity: 4,
-      hold: 0
+      capacity: 999,
+      hold: 4
     },
     position: {
       x: 0,

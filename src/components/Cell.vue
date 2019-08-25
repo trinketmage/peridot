@@ -139,7 +139,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: rgba(#f4f4f4, 1);
+    background-color: rgba(#e5e5e5, 1);
     transition: opacity .3s;
     left: 0;
     top: 0;
@@ -148,7 +148,7 @@ export default {
   }
   .hovered & {
     &:before {
-      opacity: 1;
+      opacity: .5;
     }
   }
 }
