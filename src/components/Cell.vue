@@ -154,5 +154,6 @@ export default {
   right: 0;
   padding: 4px;
   will-change: transform, opacity;
+  z-index: 1;
 }
 </style>
