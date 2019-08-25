@@ -43,6 +43,13 @@ export default [
         }
       },
       {
+        x: 0,
+        y: 1,
+        bottom: {
+          wall: true
+        }
+      },
+      {
         x: 3,
         y: 3,
         tokens: 2,

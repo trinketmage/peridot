@@ -3,24 +3,24 @@
     :class="[
       'cell',
       {
-        'bottom-wall': data.bottom.wall,
-        'right-wall': data.right.wall,
-        arrival: data.arrival
-      }
+        'bottom-wall': cell.bottom.wall,
+        'right-wall': cell.right.wall,
+        arrival: cell.arrival
+      },
+      padding
     ]"
   >
-    <!-- {{data}} -->
     <div class="cell-sizer">
       <transition name="number-fold">
-        <span class="count-holder" :key="data.tokens" v-if="data.tokens > 0">{{
-          data.tokens
+        <span class="count-holder" :key="cell.tokens" v-if="cell.tokens > 0">{{
+          cell.tokens
         }}</span>
       </transition>
       <div class="token-holder">
         <span
           :key="i"
           class="token"
-          v-for="(token, i) in data.tokens"
+          v-for="(token, i) in cell.tokens"
           :style="{
             transform
           }"
@@ -32,10 +32,29 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: ["x", "y", "data", "table"],
   computed: {
+    cell() {
+      return this.data[this.x][this.y]
+    },
     transform() {
       return `translateX(${-2 * (this.data.tokens - 1)}px)`;
+    },
+    padding() {
+      const { cell, data, x, y } = this
+      const padding = []
+      if(
+        cell.right.wall &&
+        (
+          (data[x - 1] && (data[x - 1][y].bottom.wall || data[x - 1][y].right.wall))) ||
+          (data[x - 1] && data[x - 1][y + 1] && data[x - 1][y + 1].bottom.wall)
+      ) {
+        padding.push('pad-top-right')
+      }
+      if(data[x][y - 1] && (data[x][y - 1].bottom.wall || data[x][y - 1].right.wall)) {
+        padding.push('pad-bottom-left')
+      }
+      return padding
     }
   }
 };
@@ -49,10 +68,45 @@ export default {
   position: relative;
 }
 .bottom-wall {
-  border-bottom-color: #6772e5;
+  &:after {
+    content: "";
+    display: block;
+    width: auto;
+    left: 0;
+    right: 0;
+    height: 4px;
+    position: absolute;
+    background-color: #6772e5;
+    top: 100%;
+  }
+  &.pad-bottom-left {
+    &:after {
+      margin-left: -4px;
+    }
+  }
+  &.right-wall {
+    &:after {
+      margin-right: -4px;
+    }
+  }
 }
 .right-wall {
-  border-right-color: #6772e5;
+  &:before {
+    content: "";
+    display: block;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    position: absolute;
+    background-color: #6772e5;
+    left: 100%;
+  }
+  &.pad-top-right {
+    &:before {
+      margin-top: -4px;
+    }
+  }
 }
 .arrival {
   background-color: #a1ebb1;

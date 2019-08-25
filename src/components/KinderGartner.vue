@@ -13,7 +13,13 @@
     <div class="container">
       <table class="table" cellspacing="0">
         <tr class="row" :key="xi" v-for="(x, xi) in rows">
-          <Cell :key="i" :data="data[x - 1][y - 1]" v-for="(y, i) in columns" />
+          <Cell
+            :key="i"
+            :x="x - 1"
+            :y="y - 1"
+            v-for="(y, i) in columns"
+            :data="data"
+          />
         </tr>
       </table>
 
