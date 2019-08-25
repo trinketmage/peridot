@@ -5,10 +5,13 @@
       {
         'bottom-wall': cell.bottom.wall,
         'right-wall': cell.right.wall,
-        arrival: cell.arrival
+        arrival: cell.arrival,
+        hovered
       },
       padding
     ]"
+    @mouseenter="$emit('select', {x, y})"
+    @mouseleave="$emit('unselect')"
   >
     <div class="cell-sizer">
       <transition name="number-fold">
@@ -32,7 +35,7 @@
 
 <script>
 export default {
-  props: ["x", "y", "data", "table"],
+  props: ["x", "y", "data", "active"],
   computed: {
     cell() {
       return this.data[this.x][this.y]
@@ -42,6 +45,9 @@ export default {
     },
     transform() {
       return `translateX(${-2 * (this.tokens - 1)}px)`;
+    },
+    hovered() {
+      return this.x === this.active.x || this.y === this.active.y
     },
     padding() {
       const { cell, data, x, y } = this
@@ -70,6 +76,7 @@ export default {
   border: 4px solid #f6f9fc;
   position: relative;
 }
+.cover
 .bottom-wall {
   &:after {
     content: "";
@@ -126,6 +133,24 @@ export default {
   padding: 4px;
   font-size: 12px;
   color: #8798aa;
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(#f4f4f4, 1);
+    transition: opacity .3s;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hovered & {
+    &:before {
+      opacity: 1;
+    }
+  }
 }
 .token-holder {
   position: absolute;

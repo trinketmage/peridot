@@ -253,6 +253,7 @@ export default {
     padding: 4px 8px
     cursor: pointer
     user-select: none
+    border: 1px solid #6772e4
     &:hover
       color: rgba(255, 255, 255, 1)
       background-color: #6772e4

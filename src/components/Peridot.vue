@@ -52,5 +52,6 @@ export default {
     fill: #24b47e;
     stroke: rgb(185, 244, 188);
   }
+  pointer-events: none;
 }
 </style>

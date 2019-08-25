@@ -17,8 +17,11 @@
             :key="i"
             :x="x - 1"
             :y="y - 1"
+            :active="grid"
             v-for="(y, i) in columns"
             :data="data"
+            @select="e => grid = e"
+            @unselect="() => grid = {x: -1, y: -1}"
           />
         </tr>
       </table>
@@ -37,6 +40,14 @@ export default {
   components: {
     Peridot,
     Cell
+  },
+  data() {
+    return {
+      grid: {
+        x: -1,
+        y: -1
+      }
+    }
   },
   computed: {
     rows() {
