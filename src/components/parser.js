@@ -12,6 +12,9 @@ const defineInstruction = "définir";
 const ifInstruction = "si";
 const elseifInstruction = "sinon_si";
 const elseInstruction = "sinon";
+const whileInstruction = "tant_que";
+const repeatInstruction = "répéter";
+const timesInstruction = "fois";
 
 const wallFace = "mur_en_face";
 const wallLeft = "mur_a_gauche";
@@ -37,9 +40,10 @@ var operators = [orOpe, andOpe];
 const conditionsRegex = wordRegexp(conditions);
 const operatorsRegex = wordRegexp(operators);
 
-const structureRegex = /^([a-zé]+)\s+([a-z_-]+)\s*:\s*$/;
-const ifStructureRegex = /^([a-z_]+)\s+([a-z_\s!\(\)]+)\s*:\s*$/;
+const defineRegex = /^([a-zé]+)\s+([a-z_-]+)\s*:\s*$/;
+const structureRegex = /^([a-z_]+)\s+([a-z_\s!\(\)]+)\s*:\s*$/;
 const elseStructureRegex = /^([a-z]+)\s*:\s*$/;
+const repeatStructureRegex = /^([a-zé_]+)\s+(\d+)\s([a-z_]+)\s*:\s*$/;
 
 const moveRegex = wordRegexpSingle(move);
 const leftRegex = wordRegexpSingle(left);
@@ -58,12 +62,13 @@ var textArray = [];
 ////////////////////////////////////////////////////////////////////////
 
 textArray.push("avance");//0
-textArray.push("avance");//1
 textArray.push("gauche");//2
-textArray.push("si mur_en_face ou sur_un_jeton:");//3
+textArray.push("si (mur_en_face ou sur_un_jeton):");//3
 textArray.push("  gauche");//3
 textArray.push("  si regarde_nord:");//3
 textArray.push("    gauche");//3
+textArray.push("    répéter 10 fois:");//7
+textArray.push("      avance");//7
 textArray.push("sinon_si !(a_des_jetons ou mur_en_face):");//3
 textArray.push("  gauche");//3
 textArray.push("définir yo:");//3
@@ -73,10 +78,11 @@ textArray.push("  gauche");//6
 textArray.push("avance");//7
 textArray.push("définir uturn:");//3
 textArray.push("  gauche");//6
+textArray.push("  tant_que !(a_des_jetons ou mur_en_face):");//1
+textArray.push("    avance");//1
 textArray.push("  gauche");//6
 textArray.push("  avance");//7
 textArray.push("uturn");//7
-
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -89,7 +95,7 @@ var spaceIndent = 2;
 var newInstructions = new Map();
 var execute = [];
 
-var state = {defLine:-1, lvl:0, ifParent:-1};
+var state = {defLine:-1, lvl:0, parent:-1};
 
 try{
   parseAll(textArray, state);
@@ -100,9 +106,6 @@ try{
 console.log("execute :");
 console.log(execute);
 console.log(newInstructions);
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -123,33 +126,33 @@ function parseAll(array, state){
     if(moveRegex.test(array[i])){
       execute.push(
         {type:"instruction", name:move, line:startLine+i,
-        valid:true, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        valid:true, subdefine:(state.defLine!=-1), parent:state.parent});
     }else if(leftRegex.test(array[i])){
       execute.push(
         {type:"instruction", name:left, line:startLine+i,
-        valid:true, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        valid:true, subdefine:(state.defLine!=-1), parent:state.parent});
     }else if(pickTokenRegex.test(array[i])){
       execute.push(
         {type:"instruction", name:pickToken, line:startLine+i,
-        valid:true, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        valid:true, subdefine:(state.defLine!=-1), parent:state.parent});
     }else if(dropTokenRegex.test(array[i])){
       execute.push(
         {type:"instruction", name:dropToken, line:startLine+i,
-        valid:true, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        valid:true, subdefine:(state.defLine!=-1), parent:state.parent});
 
     ////////////
     //////////// DEFINE
     ////////////
-  }else if(structureRegex.test(array[i]) && (array[i].match(structureRegex))[1] == defineInstruction){
-      var ar = array[i].match(structureRegex);
+  }else if(defineRegex.test(array[i]) && (array[i].match(defineRegex))[1] == defineInstruction){
+      var ar = array[i].match(defineRegex);
       var name = ar[2];
       if(state.lvl!=0){
         execute.push(
-          {type:"define", name:name, line:startLine+i, valid:false});
+          {type:"define", name:name, line:startLine+i, valid:false, parent:-1});
         throw "define must be at level 0"
       }
       execute.push(
-        {type:"define", name:name, line:startLine+i, valid:true});
+        {type:"define", name:name, line:startLine+i, valid:true, parent:-1});
       try{
         var nextIndex = parseDefine(array, name, i, state);
       }catch(error){
@@ -157,21 +160,72 @@ function parseAll(array, state){
         return;
       }
       if(nextIndex >=i) i=nextIndex-1;
-      else throw "Error parsing define"
+      else throw "Error parsing define";
+
+    ////////////
+    //////////// WHILE LOOP
+    ////////////
+    }else if(structureRegex.test(array[i])
+              && (array[i].match(structureRegex))[1]==whileInstruction){
+        var whileline = array[i].match(structureRegex);
+
+          var condObj = conditionObject(whileline[2]);
+          execute.push(
+            {type:"structure", category:"while", condition:condObj,
+            line:startLine+i, valid:true,
+            subdefine:(state.defLine!=-1), parent:state.parent});
+          try{
+            var nextIndex = parseLoop(array, i, state);
+          }catch(error){
+            throw (error);
+            return;
+          }
+          if(nextIndex >=i) i=nextIndex-1;
+          else throw "Error parsing while content";
+
+      ////////////
+      //////////// REPEAT LOOP
+      ////////////
+    }else if(repeatStructureRegex.test(array[i])
+          && (array[i].match(repeatStructureRegex))[1]==repeatInstruction
+          && (array[i].match(repeatStructureRegex))[3]==timesInstruction){
+
+      var repeatline = array[i].match(repeatStructureRegex);
+      var number = repeatline[2];
+      if(number>0){
+        execute.push(
+          {type:"structure", category:"repeat", times:number,
+          line:startLine+i, valid:true,
+          subdefine:(state.defLine!=-1), parent:state.parent});
+        try{
+          var nextIndex = parseLoop(array, i, state);
+        }catch(error){
+          throw (error);
+          return;
+        }
+        if(nextIndex >=i) i=nextIndex-1;
+        else throw "Error parsing repeat content";
+
+      }else{
+        execute.push(
+          {type:"structure", category:"repeat", times:number,
+          line:startLine+i, valid:false,
+          subdefine:(state.defLine!=-1), parent:state.parent});
+        throw "repeat must get strict positive number";
+      }
 
     ////////////
     //////////// IF
     ////////////
-    }else if(ifStructureRegex.test(array[i])
-              && (array[i].match(ifStructureRegex))[1]==ifInstruction){
-      var ifline = array[i].match(ifStructureRegex);
-      var condition = conditionsRegex.test(ifline[2]);
-      if(condition){
+    }else if(structureRegex.test(array[i])
+              && (array[i].match(structureRegex))[1]==ifInstruction){
+      var ifline = array[i].match(structureRegex);
+
         var condObj = conditionObject(ifline[2]);
         execute.push(
           {type:"structure", category:"if", condition:condObj,
           line:startLine+i, valid:true,
-          subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+          subdefine:(state.defLine!=-1), parent:state.parent});
         try{
           var nextIndex = parseIf(array, i, state, "if");
         }catch(error){
@@ -181,18 +235,11 @@ function parseAll(array, state){
         if(nextIndex >=i) i=nextIndex-1;
         else throw "Error parsing if content";
 
-      }else{
-        execute.push(
-          {type:"structure", category:"if", condition:ifline[2],
-          line:startLine+i, valid:false,
-          subdefine:(state.defLine!=-1), ifParent:state.ifParent});
-      }
-
     ////////////
     //////////// ELSE IF
     ////////////
-  }else if(ifStructureRegex.test(array[i])
-            && (array[i].match(ifStructureRegex))[1] == elseifInstruction){
+  }else if(structureRegex.test(array[i])
+            && (array[i].match(structureRegex))[1] == elseifInstruction){
       // only parseIf() function should parse "else if" instruction
       throw "else if without if";
 
@@ -209,17 +256,17 @@ function parseAll(array, state){
         if((newInstructions.get(other[1])!=null)){
           execute.push(
             {type:"custom_instruction", name:other[1], line:startLine+i,
-            valid:true, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+            valid:true, subdefine:(state.defLine!=-1), parent:state.parent});
         }else{
           execute.push(
             {type:"unknown", name:other[1], line:startLine+i,
-            valid:false, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+            valid:false, subdefine:(state.defLine!=-1), parent:state.parent});
           throw "unkown instruction : " + array[i];
         }
       }else{
         execute.push(
           {type:"unknown", name:array[i], line:startLine+i,
-          valid:false, subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+          valid:false, subdefine:(state.defLine!=-1), parent:state.parent});
         throw "unkown expression : " + array[i];
       }
     }
@@ -242,7 +289,7 @@ function parseIf(array, i, state, category){
   var startLine = getStartLine(state);
   //update state
   var newState = {defLine:state.defLine,
-                  lvl:1, ifParent:startLine+i};
+                  lvl:1, parent:startLine+i};
 
   while(j<array.length){
     if(compareLvl(array[j], 1)>=0){
@@ -258,22 +305,22 @@ function parseIf(array, i, state, category){
   }else{
     parseAll(subInstructions, newState);
 
-    if(ifStructureRegex.test(array[j])
-        && (array[j].match(ifStructureRegex))[1]==elseifInstruction){
+    if(structureRegex.test(array[j])
+        && (array[j].match(structureRegex))[1]==elseifInstruction){
       if(category=="else"){
         execute.push(
           {type:"structure", category:"elseif", condition:elseifline[2],
           line:startLine+j, valid:false,
-          subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+          subdefine:(state.defLine!=-1), parent:state.parent});
 
         throw "can't have else if after else";
       }
-      var elseifline = array[j].match(ifStructureRegex);
+      var elseifline = array[j].match(structureRegex);
       var condObj = conditionObject(elseifline[2]);
       execute.push(
         {type:"structure", category:"elseif", condition:condObj,
         line:startLine+j, valid:true,
-        subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        subdefine:(state.defLine!=-1), parent:state.parent});
       return parseIf(array, j, state, "elseif");
     }else if(elseStructureRegex.test(array[j])
               && (array[j].match(elseStructureRegex))[1] == elseInstruction){
@@ -281,17 +328,42 @@ function parseIf(array, i, state, category){
         execute.push(
           {type:"structure", category:"else",
           line:startLine+j, valid:false,
-          subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+          subdefine:(state.defLine!=-1), parent:state.parent});
         throw "can't have else after else";
       }
       execute.push(
         {type:"structure", category:"else",
         line:startLine+j, valid:true,
-        subdefine:(state.defLine!=-1), ifParent:state.ifParent});
+        subdefine:(state.defLine!=-1), parent:state.parent});
 
       return parseIf(array, j, state, "else");
     }
   }
+  return j--;
+}
+
+////////////        While
+
+function parseLoop(array, i, state){
+  var j = i+1;
+  var insideLoop = [];
+  var str;
+  var startLine = getStartLine(state);
+  var newState = {defLine:i, lvl:1, parent:startLine+i};
+
+  while(j<array.length){
+    if(compareLvl(array[j], 1)>=0){
+      str = array[j].substring(newState.lvl*spaceIndent);
+      insideLoop.push(str);
+    }else{
+      break;
+    }
+    j++;
+  }
+  if(j==i+1){
+    throw "no instructions inside loop " + array[i].type + " " + array[i].category;
+  }
+  parseAll(insideLoop, newState);
   return j--;
 }
 ////////////        Define
@@ -300,7 +372,7 @@ function parseDefine(array, inst, i, state){
   var j = i+1;
   var newInstruction = [];
   var str;
-  var newState = {defLine:i, lvl:1, ifParent:state.ifParent};
+  var newState = {defLine:i, lvl:1, parent:state.parent};
 
   while(j<array.length){
     if(compareLvl(array[j], 1)>=0){
@@ -346,8 +418,8 @@ function wordRegexpSingle(word) {
 }
 
 function getStartLine(state){
-  if(state.ifParent!=-1){
-    return state.ifParent+1;
+  if(state.parent!=-1){
+    return state.parent+1;
   }else if(state.defLine!=-1){
     return state.defLine+1;
   }else{
