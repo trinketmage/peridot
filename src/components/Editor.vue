@@ -14,12 +14,11 @@
         <span class="speed-control" @click="nextSpeed">{{speed}} x</span>
         <button @click="submit">
           <svg
-            data-v-2a9d965d=""
             height="20px"
             width="20px"
             viewBox="0 0 200 200"
           >
-            <polygon data-v-2a9d965d="" points="50,50 50,150 150,100"></polygon>
+            <polygon points="50,50 50,150 150,100"></polygon>
           </svg>
           {{ $t("run") }}
         </button>
@@ -41,6 +40,7 @@ import scenarios from "@/assets/Scenarios/index";
 import Instructions from "@/pure/Instructions";
 import store from "@/store/index";
 import { formatScenerioGrid, formatScenerioRobot } from "@/pure/ScenarioUtils";
+import Parser from "@/components/parser";
 import { TimelineMax, TweenMax } from "gsap";
 const speeds = [
   1,
@@ -128,6 +128,14 @@ export default {
     },
     checkInstructions() {
       const inputs = this.content.split("\n");
+      try {
+        let instructions = Parser(inputs)
+        instructions.forEach(instruction => {
+          this.instructions.push(instruction)
+        })
+      } catch (error) {
+        console.error(error);
+      }
       const errors = [];
       for (let i = 0; i < inputs.length; i++) {
         const str = inputs[i].replace(/\s/g, "");
@@ -143,15 +151,12 @@ export default {
             this.instructions.push(error);
             break;
           } else {
-            // this.i18nInstructions[str]({
-            //   robot: store.robot,
-            //   grid: store.grid
-            // })
-            this.instructions.push({
-              type: "instruction",
-              key: str,
-              line: i
-            });
+            console.log(str);
+            // this.instructions.push({
+            //   type: "instruction",
+            //   key: str,
+            //   line: i
+            // });
           }
         }
       }
@@ -185,22 +190,26 @@ export default {
       };
       this.instructions.forEach((_, i) => {
         if (_.type === "instruction") {
-          this.tl.to(helper, store.stepTime / this.speed, {
-            progress: i + 1,
-            onComplete: () => {
-              try {
-                this.i18nInstructions[_.key]({
-                  robot: store.robot,
-                  grid: store.grid
-                });
-                this.updatePeridot()
+          console.log(_)
+          _.name.forEach(instruction => {
+
+            this.tl.to(helper, store.stepTime / this.speed, {
+              progress: i + 1,
+              onComplete: () => {
+                try {
+                  this.i18nInstructions[instruction]({
+                    robot: store.robot,
+                    grid: store.grid
+                  });
+                  this.updatePeridot()
+                }
+                catch(e) {
+                  this.displayError(this.$t(`errors.${e.message}`), _.line)
+                  this.tl.kill()
+                }
               }
-              catch(e) {
-                this.displayError(this.$t(`errors.${e.message}`), _.line)
-                this.tl.kill()
-              }
-            }
-          });
+            });
+          })
         }
       });
     }
