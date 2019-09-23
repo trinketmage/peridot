@@ -127,6 +127,10 @@ export default {
       this.playInstructions();
     },
     checkInstructions() {
+      if(!this.content) {
+        console.log('no input')
+        return
+      }
       const inputs = this.content.split("\n");
       try {
         let instructions = Parser(inputs)
@@ -148,15 +152,8 @@ export default {
               type: "error"
             };
             errors.push(error);
-            this.instructions.push(error);
+            // this.instructions.push(error);
             break;
-          } else {
-            console.log(str);
-            // this.instructions.push({
-            //   type: "instruction",
-            //   key: str,
-            //   line: i
-            // });
           }
         }
       }
@@ -190,9 +187,7 @@ export default {
       };
       this.instructions.forEach((_, i) => {
         if (_.type === "instruction") {
-          console.log(_)
           _.name.forEach(instruction => {
-
             this.tl.to(helper, store.stepTime / this.speed, {
               progress: i + 1,
               onComplete: () => {
